@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Treat Up Restaurant & Bar</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fix_scroll.css">
+
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-link">
+                <img src="Logo.png" alt="Treat Up" class="nav-logo">
+                <span class="logo-text">Treat Up</span>
+            </a>
+
+            <div class="nav-toggle" id="mobile-menu-btn">
+                <span class="line line-top"></span>
+                <span class="line line-bottom"></span>
+            </div>
+            <ul class="nav-list" id="nav-list">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#menu-content" class="nav-link active">Menu</a></li>
+                <li class="nav-item"><a href="index.html#story" class="nav-link">Story</a></li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Menu Page Hero -->
+    <header class="page-hero">
+        <div class="page-hero-bg" style="background-image: url('homepagebg.png');"></div>
+        <div class="hero-overlay"></div>
+        <div class="container center">
+            <h1 class="page-title fade-up">Our Menu</h1>
+            <p class="page-subtitle fade-up delay-1">A curated selection of flavors</p>
+        </div>
+    </header>
+
+    <!-- Sticky Category Nav -->
+    <div class="category-nav-wrapper" id="category-nav">
+        <div class="container">
+            <div class="category-scroll">
+                <a href="index.html" class="cat-link"
+                    style="margin-right: 1.5rem; color: var(--color-offwhite);"><ion-icon name="arrow-back-outline"
+                        style="vertical-align: middle;"></ion-icon> Home</a>
+                <a href="#starters" class="cat-link active">Starters</a>
+                <a href="#soups" class="cat-link">Soups</a>
+                <a href="#momo" class="cat-link">MoMo</a>
+                <a href="#burgers" class="cat-link">Burgers</a>
+                <a href="#majors" class="cat-link">Mains & Rice</a>
+                <a href="#pasta" class="cat-link">Pasta</a>
+                <a href="#drinks" class="cat-link">Drinks</a>
+                <a href="#liquor" class="cat-link">Liquor</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Content -->
+    <main id="menu-content" class="section menu-page-content">
+        <div class="container">
+
+            <!-- Starters Section -->
+            <section id="starters" class="menu-section">
+                <h2 class="menu-category-title">Starters</h2>
+
+                <div class="menu-group">
+                    <h3 class="menu-group-title">Veg Starters</h3>
+                    <div class="menu-list">
+                        <div class="menu-list-item">
+                            <div class="item-name">Mix Veg. Pakoda</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 150/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Potato Bites</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 150/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Veg. Wai Wai Sadheko</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 150/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Peanuts Sadheko</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 200/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Crispy Fried Mushroom</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 300/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Paneer Chilly</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 300/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Mushroom Chilly</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 300/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Paneer Pakoda</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 300/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Chips Chilly</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 250/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Dry Papad</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 50/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Butter Hot Corn</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 180/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Hariyo Pariyo Nepali Salad</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 150/-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-group mt-large">
+                    <h3 class="menu-group-title">Non-Veg Starters</h3>
+                    <div class="menu-list">
+                        <div class="menu-list-item">
+                            <div class="item-name">Chicken Wai-Wai Sadheko</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 200/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Chicken Fried Sausage</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 200/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Chicken Sadheko</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 250/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Chicken Popcorn</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 300/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Lovely Chicken Wings</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 300/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Chicken Chilly</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 300/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Chicken Roast</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 300/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Spicy Korean Fry Chicken</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 350/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Chicken Dragon</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 300/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Rosemary Chicken</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 350/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Crispy Chicken Finger With Cheese</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 350/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Crispy Lemon Chicken Things</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 300/-</div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Soups Section -->
+            <section id="soups" class="menu-section">
+                <h2 class="menu-category-title">Soups</h2>
+                <div class="menu-group">
+                    <div class="menu-list">
+                        <div class="menu-list-item">
+                            <div class="item-name">Mix. Veg. Clear Soup</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 150/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Chicken Clear Soup</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 180/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Mushroom Soup</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 230/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Chicken Creamy Soup</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 230/-</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MoMo Section -->
+            <section id="momo" class="menu-section">
+                <h2 class="menu-category-title">MoMo</h2>
+                <div class="menu-grid-2">
+                    <div class="menu-group">
+                        <h3 class="menu-group-title">Veg. MoMo</h3>
+                        <div class="menu-list">
+                            <div class="menu-list-item">
+                                <div class="item-name">Steam</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 130/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Fried</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 150/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Chilly</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 180/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Jhol</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 180/-</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-group">
+                        <h3 class="menu-group-title">Chicken MoMo</h3>
+                        <div class="menu-list">
+                            <div class="menu-list-item">
+                                <div class="item-name">Steam</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 180/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Fried</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 200/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Chilly</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 230/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Jhol</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 230/-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Burgers Section -->
+            <section id="burgers" class="menu-section">
+                <h2 class="menu-category-title">Burgers & Sandwiches</h2>
+
+                <div class="menu-group">
+                    <h3 class="menu-group-title">Burgers</h3>
+                    <div class="menu-list">
+                        <div class="menu-list-item">
+                            <div class="item-name">Chicken Patty Burger</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 280/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Crispy Chicken Burger</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 280/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Veg. Patty Burger</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 200/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Juicy-lucy Burger</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 350/-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-group mt-large">
+                    <h3 class="menu-group-title">Burger Combo</h3>
+                    <p class="section-note mb-small">Includes: Jigri Coke, Potato Bites, Coleslaw Salad, Tomato Ketchup
+                    </p>
+                    <div class="menu-list">
+                        <div class="menu-list-item">
+                            <div class="item-name">Chicken Patty Burgers Combo</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 400/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Crispy Chicken Burgers Combo</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 400/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Veg. Patty Burgers Combo</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 350/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Juicy Lucy Burgers Combo</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 450/-</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mains & Rice Section -->
+            <section id="majors" class="menu-section">
+                <h2 class="menu-category-title">Mains & Rice</h2>
+
+                <div class="menu-group">
+                    <h3 class="menu-group-title">Treat Up Special</h3>
+                    <div class="menu-list">
+                        <div class="menu-list-item">
+                            <div class="item-name">Pan Grilled Chicken Breast with Grill Tomato</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 300/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Creamy Chicken with Garlic Bread</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 350/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Chicken Rice Bowl</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 300/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Paneer Rice Bowl</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 300/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Kima Noodles Chicken</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 280/-</div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Chicken Steak with butter Rice</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price">Rs. 350/-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-grid-2 mt-large">
+                    <div class="menu-group">
+                        <h3 class="menu-group-title">Chowmein</h3>
+                        <div class="menu-list">
+                            <div class="menu-list-item">
+                                <div class="item-name">Veg.</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 150/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Egg</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 220/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Chicken</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 220/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Mix. Chowmein</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 250/-</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-group">
+                        <h3 class="menu-group-title">Fry Rice</h3>
+                        <div class="menu-list">
+                            <div class="menu-list-item">
+                                <div class="item-name">Veg.</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 180/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Egg</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 200/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Chicken</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 250/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Mix Fry Rice</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 280/-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pasta Section -->
+            <section id="pasta" class="menu-section">
+                <h2 class="menu-category-title">Penne Pasta</h2>
+                <div class="menu-group">
+                    <div class="menu-list">
+                        <div class="menu-list-item">
+                            <div class="item-name">Red Sauce Pasta</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price"><span>Veg: Rs. 300/-</span> <span class="ml-2">Non-Veg: Rs.
+                                    300/-</span></div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">White Sauce Pasta</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price"><span>Veg: Rs. 300/-</span> <span class="ml-2">Non-Veg: Rs.
+                                    300/-</span></div>
+                        </div>
+                        <div class="menu-list-item">
+                            <div class="item-name">Mixed Sauce Pasta</div>
+                            <div class="item-dots"></div>
+                            <div class="item-price"><span>Veg: Rs. 350/-</span> <span class="ml-2">Non-Veg: Rs.
+                                    350/-</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Drinks Section -->
+            <section id="drinks" class="menu-section">
+                <h2 class="menu-category-title">Beverages</h2>
+                <div class="menu-grid-2">
+                    <div class="menu-group">
+                        <h3 class="menu-group-title">Hot Drinks</h3>
+                        <div class="menu-list">
+                            <div class="menu-list-item">
+                                <div class="item-name">Milk Tea</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 50/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Lemon Tea</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 50/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Black Tea</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 40/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Milk Coffee</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 120/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Black Coffee</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 100/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Ginger Hot Lemon With Honey</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 100/-</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-group">
+                        <h3 class="menu-group-title">Soft/Cold Drinks</h3>
+                        <div class="menu-list">
+                            <div class="menu-list-item">
+                                <div class="item-name">Milk Banana Shake</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 150/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Banana Lassi</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 200/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Sweet Lassi</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 160/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Vanilla Shake</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 200/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Lemonade</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 150/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Cold Coffee</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 200/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Coke/Fanta/Sprite</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 90/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Can Juice</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 150/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Mineral Water</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 30/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Red Bull</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 250/-</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Apple Cider</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 280/-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="menu-group-title mt-large">Beer</h3>
+                <div class="menu-list compact-list">
+                    <div class="menu-list-item">
+                        <div class="item-name">Tuborg</div>
+                        <div class="item-dots"></div>
+                        <div class="item-price">Rs. 600/-</div>
+                    </div>
+                    <div class="menu-list-item">
+                        <div class="item-name">Gorkha (Strong)</div>
+                        <div class="item-dots"></div>
+                        <div class="item-price">Rs. 500/-</div>
+                    </div>
+                </div>
+
+                <h3 class="menu-group-title mt-large">Dessert</h3>
+                <div class="menu-list compact-list">
+                    <div class="menu-list-item">
+                        <div class="item-name">Hot Chocolate Brownie with Vanilla Ice Cream</div>
+                        <div class="item-dots"></div>
+                        <div class="item-price">Rs. 220/-</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Liquor Section -->
+            <section id="liquor" class="menu-section">
+                <h2 class="menu-category-title">Bar Menu</h2>
+
+                <h3 class="menu-group-title">Domestic Liquor</h3>
+                <div class="table-responsive">
+                    <table class="liquor-table">
+                        <thead>
+                            <tr>
+                                <th>Brand</th>
+                                <th>60ml</th>
+                                <th>Qtr</th>
+                                <th>Half</th>
+                                <th>Full</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Royal Stag</td>
+                                <td>350/-</td>
+                                <td>730/-</td>
+                                <td>1300/-</td>
+                                <td>2500/-</td>
+                            </tr>
+                            <tr>
+                                <td>Ruslan</td>
+                                <td>350/-</td>
+                                <td>730/-</td>
+                                <td>1300/-</td>
+                                <td>2500/-</td>
+                            </tr>
+                            <tr>
+                                <td>Khukri Rum</td>
+                                <td>400/-</td>
+                                <td>800/-</td>
+                                <td>1450/-</td>
+                                <td>2750/-</td>
+                            </tr>
+                            <tr>
+                                <td>8848</td>
+                                <td>390/-</td>
+                                <td>780/-</td>
+                                <td>1400/-</td>
+                                <td>2700/-</td>
+                            </tr>
+                            <tr>
+                                <td>Signature (Red)</td>
+                                <td>410/-</td>
+                                <td>880/-</td>
+                                <td>1750/-</td>
+                                <td>3300/-</td>
+                            </tr>
+                            <tr>
+                                <td>Old Durbar (Red)</td>
+                                <td>470/-</td>
+                                <td>1050/-</td>
+                                <td>2000/-</td>
+                                <td>3800/-</td>
+                            </tr>
+                            <tr>
+                                <td>Old Durbar (Black)</td>
+                                <td>550/-</td>
+                                <td>1250/-</td>
+                                <td>2450/-</td>
+                                <td>4600/-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="menu-group-title mt-large">Wine</h3>
+                <div class="menu-list">
+                    <div class="menu-list-item">
+                        <div class="item-name">Divine (Red) Full</div>
+                        <div class="item-dots"></div>
+                        <div class="item-price">Rs. 1300/-</div>
+                    </div>
+                    <div class="menu-list-item">
+                        <div class="item-name">Big Master (Red) Full</div>
+                        <div class="item-dots"></div>
+                        <div class="item-price">Rs. 1400/-</div>
+                    </div>
+                    <div class="menu-list-item">
+                        <div class="item-name">Robertser Full</div>
+                        <div class="item-dots"></div>
+                        <div class="item-price">Rs. 2200/-</div>
+                    </div>
+                </div>
+
+                <div class="menu-grid-2 mt-large">
+                    <div class="menu-group">
+                        <h3 class="menu-group-title">Sisha (Hookah)</h3>
+                        <div class="menu-list compact-list">
+                            <div class="menu-list-item">
+                                <div class="item-name">Hookah</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 400/-</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-group">
+                        <h3 class="menu-group-title">Cigarette</h3>
+                        <div class="menu-list compact-list">
+                            <div class="menu-list-item">
+                                <div class="item-name">Surya</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 30/- (Stick)</div>
+                            </div>
+                            <div class="menu-list-item">
+                                <div class="item-name">Shikhar Ice Rush</div>
+                                <div class="item-dots"></div>
+                                <div class="item-price">Rs. 25/- (Stick)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer (Simplified) -->
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Branding -->
+                <div class="footer-col brand-col">
+                    <img src="Logo.png" alt="Treat Up" class="footer-logo">
+                    <p class="footer-desc">
+                        A culinary sanctuary where tradition meets modern luxury.
+                    </p>
+                    <a href="https://www.facebook.com/people/Treat-Up-Restaurant-Bar/100057655141268/"
+                        class="social-btn" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a>
+                </div>
+
+                <!-- Hours -->
+                <div class="footer-col">
+                    <h3 class="footer-title">Opening Hours</h3>
+                    <ul class="footer-info-list">
+                        <li><span>Sun - Sat: &nbsp;&nbsp;</span> 10:00 AM - 9:30 PM</li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Location -->
+                <div class="footer-col">
+                    <h3 class="footer-title">Find Us</h3>
+                    <div class="footer-contact-item">
+                        <ion-icon name="location-outline"></ion-icon>
+                        <a href="https://maps.app.goo.gl/wDcuZWnjtXk3U9J36" target="_blank">Airport Mode, Biratnagar</a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <ion-icon name="call-outline"></ion-icon>
+                        <a href="tel:9816168997">9816168997</a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <a href="mailto:treatup.contact@gmail.com">treatup.contact@gmail.com</a>
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div class="footer-col map-col">
+                    <iframe
+                        src="https://maps.google.com/maps?q=Treat+Up+Restaurant+and+Bar&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                        width="100%" height="150"
+                        style="border:0; filter: grayscale(100%) invert(92%) contrast(83%); border-radius: 4px;"
+                        allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2026 Treat Up Restaurant. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="index.html">Home</a>
+                    <a href="#navbar">Top</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/9779816168997?text=Hi%20Treat%20Up!%20I'd%20like%20to%20place%20an%20order."
+        class="whatsapp-float" target="_blank">
+        <ion-icon name="logo-whatsapp"></ion-icon>
+    </a>
+
+
+    <script src="script.js"></script>
+    <script>
+        // Simple sticky nav highlight logic
+        const sections = document.querySelectorAll('section');
+        const navLi = document.querySelectorAll('.cat-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 250)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLi.forEach(a => {
+                a.classList.remove('active');
+                if (current && a.getAttribute('href').includes(current)) {
+                    a.classList.add('active');
+                }
+            });
+
+            // Default to starters
+            if (!current && scrollY < 300) {
+                if (navLi.length > 0) navLi[0].classList.add('active');
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+/* High-Priority Scrollbar Override */
+
+/* Webkit (Chrome, Edge, Safari, Opera) - Targeting HTML and Body explicitly */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    width: 12px !important;
+    height: 12px !important;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+    background: #1a1a1a !important;
+    /* Charcoal */
+    border-radius: 4px !important;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+    background: #c5a059 !important;
+    /* Gold */
+    border-radius: 6px !important;
+    border: 3px solid #1a1a1a !important;
+    /* Charcoal border for padding effect */
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+    background: #d4a017 !important;
+    /* Brighter Gold */
+}
+
+/* Firefox - Targeting HTML explicitly */
+html {
+    scrollbar-width: thin !important;
+    scrollbar-color: #c5a059 #1a1a1a !important;
+}
+
+/* Horizontal Scroll overrides (Menu Categories, Tables) */
+.category-scroll::-webkit-scrollbar,
+.table-responsive::-webkit-scrollbar {
+    height: 4px !important;
+    /* Thinner for cleaner look */
+    width: 4px !important;
+    display: block !important;
+    background: transparent !important;
+}
+
+.category-scroll::-webkit-scrollbar-track,
+.table-responsive::-webkit-scrollbar-track {
+    background: transparent !important;
+    border-radius: 4px !important;
+}
+
+/* Default: Transparent/Hidden */
+.category-scroll::-webkit-scrollbar-thumb,
+.table-responsive::-webkit-scrollbar-thumb {
+    background: transparent !important;
+    border-radius: 4px !important;
+    border: none !important;
+}
+
+/* Visible State: Gold (Applied via JS) */
+.category-scroll.scrolling::-webkit-scrollbar-thumb,
+.table-responsive.scrolling::-webkit-scrollbar-thumb {
+    background: #c5a059 !important;
+}
+
+/* Ensure horizontal scrolling works smoothly */
+.category-scroll,
+.table-responsive {
+    scrollbar-width: thin !important;
+    scrollbar-color: transparent transparent !important;
+    /* Firefox default hidden */
+    overflow-x: auto !important;
+    transition: scrollbar-color 0.3s;
+}
+
+.category-scroll.scrolling,
+.table-responsive.scrolling {
+    scrollbar-color: #c5a059 transparent !important;
+    /* Firefox visible */
+}

@@ -1,0 +1,318 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treat Up Restaurant & Bar</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fix_scroll.css">
+
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+
+    <!-- Loading Overlay (Optional for premium feel) -->
+    <!-- <div class="loader">
+        <div class="spinner"></div>
+    </div> -->
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo-link">
+                <!-- Fallback text logo if image fails, but using image generally -->
+                <img src="Logo.png" alt="Treat Up" class="nav-logo">
+                <span class="logo-text">Treat Up</span>
+            </a>
+
+            <div class="nav-toggle" id="mobile-menu-btn">
+                <span class="line line-top"></span>
+                <span class="line line-bottom"></span>
+            </div>
+            <ul class="nav-list" id="nav-list">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#menu" class="nav-link">Menu</a></li>
+                <li class="nav-item"><a href="#story" class="nav-link">Story</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="hero" class="hero">
+        <div class="hero-bg parallax-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content container">
+            <div class="hero-text-wrapper">
+
+                <div class="reveal-text-wrapper">
+                    <!-- Inline styles removed to be handled in CSS -->
+                    <h2 class="pre-title reveal-text">TREAT UP RESTAURANT & BAR</h2>
+                </div>
+
+                <div class="reveal-text-wrapper">
+                    <h1 class="main-title reveal-text" style="transition-delay: 0.2s;">Treat Yourself<br><em>to the
+                            Best</em></h1>
+                </div>
+
+                <div class="reveal-text-wrapper">
+                    <p class="tagline reveal-text">
+                        Simple flavors. Extraordinary bites. Treat yourself to the very best.</p>
+                </div>
+
+                <div class="hero-actions fade-up delay-4">
+                    <a href="https://wa.me/9779816168997?text=Hi%20Treat%20Up!%20I'd%20like%20to%20place%20an%20order."
+                        class="btn btn-primary" target="_blank">Order Now</a>
+                    <a href="menu.html" class="btn btn-outline">View Menu</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <ion-icon name="chevron-down-outline" class="scroll-arrow"></ion-icon>
+        </div>
+    </header>
+
+    <!-- Story Section -->
+    <section id="story" class="section story">
+        <div class="container">
+            <!-- Premium Boxed Story Layout - Replaced with Editorial Layout -->
+            <div class="story-layout">
+
+                <!-- Left Column: Content -->
+                <div class="story-content fade-up">
+                    <h2 class="section-title left-align">A Pursuit of Excellence</h2>
+
+                    <div class="story-divider-gold left-align">
+                        <span class="line"></span>
+                        <span class="divider-symbol">&#10087;</span> <!-- Unicode Floral Heart/Leaf element -->
+                        <span class="line"></span>
+                    </div>
+
+                    <div class="story-body">
+                        <p class="story-text">
+                            <span class="drop-cap">F</span>ounded in 2019, <strong>Treat Up Restaurant & Bar</strong>
+                            was born from a simple yet powerful mission: to bring uncompromising quality to the table.
+                            We wanted to create more than just a place to eat; we envisioned a sanctuary where culinary
+                            art meets warm hospitality.
+                        </p>
+
+                        <!-- Extracted Stats Start -->
+                        <div class="stats-highlight shadow-box">
+                            <span class="stat-number">7+</span>
+                            <span class="stat-label">Years of<br>Excellence</span>
+                        </div>
+                        <!-- Extracted Stats End -->
+
+                        <p class="story-text">
+                            From a local dream into a beloved community staple, our growth has been fueled by the smiles
+                            of our guests and the dedication of our team. Every ingredient is selected with care, and
+                            every recipe tells a story of tradition reimagined for the modern palate.
+                        </p>
+                    </div>
+
+                    <div class="spacer-xl"></div>
+
+                    <h3 class="philosophy-title left-align">Chef's Philosophy</h3>
+                    <p class="philosophy-text left-align">
+                        "Quality is not just a standard; it is our core priority. Every dish must be a masterpiece of
+                        taste, crafted with patience and precision. We believe that great food has the power to bring
+                        people together and create lasting memories."
+                    </p>
+
+                    <div class="signature-block left-align">
+                        <span class="signature-script">Rajan Dahal</span>
+                        <span class="sig-title">Head Chef & Owner</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Treat Up Specials Section -->
+    <section id="menu" class="section menu">
+        <div class="container">
+            <div class="section-header center">
+                <h3 class="sub-title fade-up">Chef's Selection</h3>
+                <h2 class="section-title fade-up delay-1">Treat Up Specials</h2>
+                <div class="separator-center"></div>
+            </div>
+
+            <!-- Static Grid of Specials (No Tabs) -->
+            <div class="menu-grid active" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+
+                <!-- Special 1 -->
+                <div class="menu-item fade-up">
+                    <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=2000&auto=format&fit=crop"
+                        alt="Pan Grilled Chicken" class="menu-img">
+                    <div class="dish-info">
+                        <div class="dish-header">
+                            <h4>Pan Grilled Chicken Breast</h4>
+                            <span class="price">Rs. 300</span>
+                        </div>
+                        <p class="dish-desc">Served with fresh grilled tomatoes and herbs.</p>
+                    </div>
+                </div>
+
+                <!-- Special 2 -->
+                <div class="menu-item fade-up delay-1">
+                    <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2000&auto=format&fit=crop"
+                        alt="Creamy Chicken" class="menu-img">
+                    <div class="dish-info">
+                        <div class="dish-header">
+                            <h4>Creamy Chicken w/ Garlic Bread</h4>
+                            <span class="price">Rs. 350</span>
+                        </div>
+                        <p class="dish-desc">Rich creamy sauce paired with crispy garlic bread.</p>
+                    </div>
+                </div>
+
+                <!-- Special 3 -->
+                <div class="menu-item fade-up delay-2">
+                    <img src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?q=80&w=2000&auto=format&fit=crop"
+                        alt="Chicken Rice Bowl" class="menu-img">
+                    <div class="dish-info">
+                        <div class="dish-header">
+                            <h4>Chicken Rice Bowl</h4>
+                            <span class="price">Rs. 300</span>
+                        </div>
+                        <p class="dish-desc">Wholesome bowl with seasoned chicken and rice.</p>
+                    </div>
+                </div>
+
+                <!-- Special 4 -->
+                <div class="menu-item fade-up delay-3">
+                    <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=2000&auto=format&fit=crop"
+                        alt="Paneer Rice Bowl" class="menu-img">
+                    <div class="dish-info">
+                        <div class="dish-header">
+                            <h4>Paneer Rice Bowl</h4>
+                            <span class="price">Rs. 300</span>
+                        </div>
+                        <p class="dish-desc">Cottage cheese cubes tossed in spices served over rice.</p>
+                    </div>
+                </div>
+
+                <!-- Special 5 -->
+                <div class="menu-item fade-up delay-4">
+                    <img src="https://images.unsplash.com/photo-1552611052-33e04de081de?q=80&w=2000&auto=format&fit=crop"
+                        alt="Keema Noodles" class="menu-img">
+                    <div class="dish-info">
+                        <div class="dish-header">
+                            <h4>Keema Noodles</h4>
+                            <span class="price">Rs. 280</span>
+                        </div>
+                        <p class="dish-desc">Minced chicken tossed with noodles and savory spices.</p>
+                    </div>
+                </div>
+
+                <!-- Special 6 -->
+                <div class="menu-item fade-up delay-5">
+                    <img src="https://images.unsplash.com/photo-1546964124-0cce460f38ef?q=80&w=2000&auto=format&fit=crop"
+                        alt="Chicken Steak" class="menu-img">
+                    <div class="dish-info">
+                        <div class="dish-header">
+                            <h4>Chicken Steak w/ Butter Rice</h4>
+                            <span class="price">Rs. 350</span>
+                        </div>
+                        <p class="dish-desc">Juicy chicken steak served with aromatic butter rice.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="menu-footer text-center" style="margin-top: 3rem; text-align: center;">
+                <a href="menu.html" class="btn btn-outline"
+                    style="font-size: 1.1rem; padding: 15px 40px; text-decoration: none;">View Full Menu</a>
+            </div>
+
+            <!-- Full Menu Container (Hidden) -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Branding -->
+                <div class="footer-col brand-col">
+                    <img src="Logo.png" alt="Treat Up" class="footer-logo">
+                    <p class="footer-desc">
+                        Your daily destination for elevated comfort food and a classic atmosphere.
+                    </p>
+                    <a href="https://www.facebook.com/people/Treat-Up-Restaurant-Bar/100057655141268/"
+                        class="social-btn" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a>
+                </div>
+
+                <!-- Hours -->
+                <div class="footer-col">
+                    <h3 class="footer-title">Opening Hours</h3>
+                    <ul class="footer-info-list">
+                        <li><span>Sun - Sat: &nbsp;&nbsp;</span> 10:00 AM - 9:30 PM</li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Location -->
+                <div class="footer-col">
+                    <h3 class="footer-title">Find Us</h3>
+                    <div class="footer-contact-item">
+                        <ion-icon name="location-outline"></ion-icon>
+                        <a href="https://maps.app.goo.gl/wDcuZWnjtXk3U9J36" target="_blank">Airport Mode, Biratnagar</a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <ion-icon name="call-outline"></ion-icon>
+                        <a href="tel:9816168997">9816168997</a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <a href="mailto:treatup.contact@gmail.com">treatup.contact@gmail.com</a>
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div class="footer-col map-col">
+                    <iframe
+                        src="https://maps.google.com/maps?q=Treat+Up+Restaurant+and+Bar&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                        width="100%" height="150"
+                        style="border:0; filter: grayscale(100%) invert(92%) contrast(83%); border-radius: 4px;"
+                        allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2026 Treat Up Restaurant. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#hero">Home</a>
+                    <a href="#menu">Menu</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/9779816168997?text=Hi%20Treat%20Up!%20I'd%20like%20to%20place%20an%20order."
+        class="whatsapp-float" target="_blank">
+        <ion-icon name="logo-whatsapp"></ion-icon>
+    </a>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

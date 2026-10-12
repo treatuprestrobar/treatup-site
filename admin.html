@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal | Treat Up Restaurant & Bar</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#0B0B0B',
+                        charcoal: '#141414',
+                        surface: '#1E1E1E',
+                        'surface-border': '#2D2D2D',
+                        'surface-hover': '#282828',
+                        gold: '#C5A059',
+                        'gold-light': '#E0BE7A',
+                        'gold-dark': '#9A7B39',
+                        crimson: '#A31D1D',
+                        'crimson-light': '#C52B2B',
+                    },
+                    fontFamily: {
+                        heading: ['"Cormorant Garamond"', 'serif'],
+                        body: ['"Montserrat"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <style>
+        /* Custom scrollbar for admin panels */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #141414;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C5A059;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E0BE7A;
+        }
+        .gold-glow {
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+        }
+        .gold-border-glow:focus {
+            outline: none;
+            border-color: #C5A059;
+            box-shadow: 0 0 10px rgba(197, 160, 89, 0.3);
+        }
+    </style>
+</head>
+
+<body class="bg-obsidian text-neutral-200 font-body min-h-screen flex flex-col antialiased selection:bg-gold selection:text-obsidian">
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-surface border border-surface-border rounded-xl max-w-md w-full p-6 shadow-2xl">
+            <div class="flex items-center gap-3 text-crimson mb-3">
+                <ion-icon name="warning-outline" class="text-3xl"></ion-icon>
+                <h3 class="text-lg font-bold text-white" id="confirm-title">Confirm Action</h3>
+            </div>
+            <p class="text-neutral-400 text-sm mb-6" id="confirm-message">Are you sure you want to proceed?</p>
+            <div class="flex justify-end gap-3">
+                <button id="confirm-cancel-btn" class="px-4 py-2 rounded-lg bg-charcoal hover:bg-surface-hover text-neutral-300 text-sm font-medium transition">Cancel</button>
+                <button id="confirm-ok-btn" class="px-4 py-2 rounded-lg bg-crimson hover:bg-crimson-light text-white text-sm font-medium transition shadow-lg">Confirm Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 1. AUTHENTICATION VIEW (LOGIN SCREEN)      -->
+    <!-- ========================================== -->
+    <div id="auth-view" class="flex-1 flex items-center justify-center p-4 min-h-screen">
+        <div class="w-full max-w-md bg-charcoal border border-surface-border/80 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="text-center mb-8">
+                <img src="Logo.webp" alt="Treat Up" class="h-16 mx-auto mb-3 object-contain">
+                <h1 class="font-heading text-3xl font-bold text-white tracking-wider">TREAT UP</h1>
+                <p class="text-xs uppercase tracking-widest text-gold mt-1">Management Portal</p>
+                <p class="text-xs text-neutral-500 mt-2">Sign in to manage live menus, specials & prices</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="space-y-5">
+                <div id="login-error" class="hidden bg-crimson/20 border border-crimson/50 text-red-200 text-xs rounded-lg p-3"></div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-2">Staff Email</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-neutral-500 text-lg">
+                            <ion-icon name="mail-outline"></ion-icon>
+                        </span>
+                        <input type="email" id="login-email" required placeholder="owner@treatup.com.np"
+                            class="w-full bg-surface border border-surface-border rounded-lg pl-10 pr-4 py-3 text-sm text-white placeholder-neutral-600 gold-border-glow transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-2">Password</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-neutral-500 text-lg">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                        </span>
+                        <input type="password" id="login-password" required placeholder="••••••••"
+                            class="w-full bg-surface border border-surface-border rounded-lg pl-10 pr-10 py-3 text-sm text-white placeholder-neutral-600 gold-border-glow transition">
+                        <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-neutral-500 hover:text-white transition">
+                            <ion-icon name="eye-outline"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" id="login-btn"
+                    class="w-full bg-gold hover:bg-gold-light text-obsidian font-bold py-3 rounded-lg text-sm tracking-wider uppercase transition duration-200 shadow-lg flex items-center justify-center gap-2">
+                    <span id="login-btn-text">Sign In</span>
+                    <ion-icon id="login-btn-spinner" name="refresh-outline" class="hidden animate-spin text-lg"></ion-icon>
+                </button>
+            </form>
+
+            <div class="mt-8 text-center border-t border-surface-border/50 pt-4">
+                <a href="index.html" class="text-xs text-neutral-500 hover:text-gold transition flex items-center justify-center gap-1">
+                    <ion-icon name="arrow-back-outline"></ion-icon>
+                    Back to Public Website
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 2. DASHBOARD VIEW (AUTHENTICATED)          -->
+    <!-- ========================================== -->
+    <div id="dashboard-view" class="hidden flex-1 flex flex-col">
+
+        <!-- Top Header Navigation -->
+        <header class="bg-charcoal border-b border-surface-border sticky top-0 z-30">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                <!-- Branding -->
+                <div class="flex items-center gap-3">
+                    <img src="Logo.webp" alt="Treat Up" class="h-9 w-auto">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-heading font-bold text-xl text-white tracking-wider">TREAT UP</span>
+                            <span class="text-[10px] bg-gold/15 text-gold border border-gold/30 px-2 py-0.5 rounded-full font-semibold">ADMIN</span>
+                        </div>
+                        <span class="text-[11px] text-neutral-500 hidden sm:block">Airport Mode, Biratnagar</span>
+                    </div>
+                </div>
+
+                <!-- Right Actions -->
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <a href="index.html" target="_blank" title="Preview Live Site"
+                        class="text-xs text-neutral-400 hover:text-gold transition flex items-center gap-1 bg-surface px-3 py-1.5 rounded-lg border border-surface-border">
+                        <ion-icon name="open-outline"></ion-icon>
+                        <span class="hidden md:inline">View Website</span>
+                    </a>
+                    <div class="h-4 w-px bg-surface-border hidden sm:block"></div>
+                    <div class="text-right hidden md:block">
+                        <p class="text-xs text-white font-medium" id="user-email-display">admin@treatup.com.np</p>
+                        <p class="text-[10px] text-green-400 flex items-center justify-end gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+                            Live Connected
+                        </p>
+                    </div>
+                    <button id="logout-btn" title="Sign Out"
+                        class="bg-surface hover:bg-crimson/20 border border-surface-border hover:border-crimson/50 text-neutral-300 hover:text-red-400 px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5">
+                        <ion-icon name="log-out-outline" class="text-base"></ion-icon>
+                        <span class="hidden sm:inline">Sign Out</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab Navigation Bar -->
+            <div class="bg-obsidian border-t border-surface-border/50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex overflow-x-auto space-x-2 sm:space-x-8 py-2">
+                    <button class="nav-tab active flex items-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap text-gold bg-surface border-b-2 border-gold" data-tab="specials">
+                        <ion-icon name="star-outline" class="text-lg"></ion-icon>
+                        <span>Home Page Specials</span>
+                        <span id="badge-specials" class="text-[10px] px-1.5 py-0.5 rounded-full bg-gold/20 text-gold font-bold">13</span>
+                    </button>
+                    <button class="nav-tab flex items-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap text-neutral-400 hover:text-white" data-tab="menu">
+                        <ion-icon name="restaurant-outline" class="text-lg"></ion-icon>
+                        <span>Food & Drinks Menu</span>
+                        <span id="badge-menu" class="text-[10px] px-1.5 py-0.5 rounded-full bg-surface-border text-neutral-400 font-bold">94</span>
+                    </button>
+                    <button class="nav-tab flex items-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap text-neutral-400 hover:text-white" data-tab="liquor">
+                        <ion-icon name="wine-outline" class="text-lg"></ion-icon>
+                        <span>Bar & Liquor</span>
+                        <span id="badge-liquor" class="text-[10px] px-1.5 py-0.5 rounded-full bg-surface-border text-neutral-400 font-bold">7</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+
+            <!-- ============================================== -->
+            <!-- TAB 1: HOME PAGE SPECIALS                      -->
+            <!-- ============================================== -->
+            <section id="tab-specials" class="tab-content space-y-6">
+                <!-- Actions Bar -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-charcoal p-4 rounded-xl border border-surface-border">
+                    <div>
+                        <h2 class="font-heading text-2xl font-bold text-white">Chef's Selection & Specials</h2>
+                        <p class="text-xs text-neutral-400 mt-0.5">Manage the 13 featured specials displayed on the home page grid</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="relative flex-1 sm:w-64">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-neutral-500 text-sm">
+                                <ion-icon name="search-outline"></ion-icon>
+                            </span>
+                            <input type="text" id="search-specials" placeholder="Filter specials..."
+                                class="w-full bg-surface border border-surface-border rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-neutral-500 gold-border-glow">
+                        </div>
+                        <button id="btn-add-special"
+                            class="bg-gold hover:bg-gold-light text-obsidian px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition shadow">
+                            <ion-icon name="add-circle-outline" class="text-base"></ion-icon>
+                            <span>Add Special</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Grid of Specials -->
+                <div id="specials-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Cards injected dynamically by JS -->
+                </div>
+            </section>
+
+            <!-- ============================================== -->
+            <!-- TAB 2: FOOD & DRINKS MENU                      -->
+            <!-- ============================================== -->
+            <section id="tab-menu" class="tab-content hidden space-y-6">
+                <!-- Actions Bar -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-charcoal p-4 rounded-xl border border-surface-border">
+                    <div>
+                        <h2 class="font-heading text-2xl font-bold text-white">Full Food & Drinks Catalog</h2>
+                        <p class="text-xs text-neutral-400 mt-0.5">Toggle stock status and edit pricing instantly across all categories</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="relative flex-1 sm:w-64">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-neutral-500 text-sm">
+                                <ion-icon name="search-outline"></ion-icon>
+                            </span>
+                            <input type="text" id="search-menu" placeholder="Search dish or beverage..."
+                                class="w-full bg-surface border border-surface-border rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-neutral-500 gold-border-glow">
+                        </div>
+                        <button id="btn-add-menu-item"
+                            class="bg-gold hover:bg-gold-light text-obsidian px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition shadow">
+                            <ion-icon name="add-circle-outline" class="text-base"></ion-icon>
+                            <span>Add Dish</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Category Filtering Pills -->
+                <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-thin" id="category-pills">
+                    <button class="cat-pill active px-3 py-1.5 rounded-lg text-xs font-semibold bg-gold text-obsidian" data-cat="all">All Items</button>
+                    <button class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface border border-surface-border text-neutral-400 hover:text-white" data-cat="starters">Starters</button>
+                    <button class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface border border-surface-border text-neutral-400 hover:text-white" data-cat="soups">Soups</button>
+                    <button class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface border border-surface-border text-neutral-400 hover:text-white" data-cat="momo">MoMo</button>
+                    <button class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface border border-surface-border text-neutral-400 hover:text-white" data-cat="burgers">Burgers</button>
+                    <button class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface border border-surface-border text-neutral-400 hover:text-white" data-cat="majors">Mains & Rice</button>
+                    <button class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface border border-surface-border text-neutral-400 hover:text-white" data-cat="pasta">Pasta</button>
+                    <button class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface border border-surface-border text-neutral-400 hover:text-white" data-cat="drinks">Drinks & Beer</button>
+                    <button class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface border border-surface-border text-neutral-400 hover:text-white" data-cat="liquor">Wine & Others</button>
+                </div>
+
+                <!-- Menu Items Table / List -->
+                <div class="bg-charcoal border border-surface-border rounded-xl overflow-hidden shadow-lg">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-surface text-neutral-400 uppercase tracking-wider text-[11px] border-b border-surface-border">
+                                <tr>
+                                    <th class="py-3 px-4">Dish Name</th>
+                                    <th class="py-3 px-4">Category</th>
+                                    <th class="py-3 px-4">Subcategory</th>
+                                    <th class="py-3 px-4">Price (NPR)</th>
+                                    <th class="py-3 px-4 text-center">Status</th>
+                                    <th class="py-3 px-4 text-center">Badge</th>
+                                    <th class="py-3 px-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="menu-items-table-body" class="divide-y divide-surface-border/60">
+                                <!-- Rendered dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================== -->
+            <!-- TAB 3: BAR & LIQUOR MATRIX                     -->
+            <!-- ============================================== -->
+            <section id="tab-liquor" class="tab-content hidden space-y-6">
+                <!-- Actions Bar -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-charcoal p-4 rounded-xl border border-surface-border">
+                    <div>
+                        <h2 class="font-heading text-2xl font-bold text-white">Domestic Liquor Price Matrix</h2>
+                        <p class="text-xs text-neutral-400 mt-0.5">Click any volume price (60ml, Qtr, Half, Full) to update it in real time</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="relative flex-1 sm:w-64">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-neutral-500 text-sm">
+                                <ion-icon name="search-outline"></ion-icon>
+                            </span>
+                            <input type="text" id="search-liquor" placeholder="Filter liquor brand..."
+                                class="w-full bg-surface border border-surface-border rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-neutral-500 gold-border-glow">
+                        </div>
+                        <button id="btn-add-liquor"
+                            class="bg-gold hover:bg-gold-light text-obsidian px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition shadow">
+                            <ion-icon name="add-circle-outline" class="text-base"></ion-icon>
+                            <span>Add Brand</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Liquor 5-Column Table -->
+                <div class="bg-charcoal border border-surface-border rounded-xl overflow-hidden shadow-lg">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-surface text-neutral-400 uppercase tracking-wider text-[11px] border-b border-surface-border">
+                                <tr>
+                                    <th class="py-3 px-4">Brand</th>
+                                    <th class="py-3 px-4">60ml</th>
+                                    <th class="py-3 px-4">Quarter (180ml)</th>
+                                    <th class="py-3 px-4">Half (375ml)</th>
+                                    <th class="py-3 px-4">Full (750ml)</th>
+                                    <th class="py-3 px-4 text-center">Status</th>
+                                    <th class="py-3 px-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="liquor-table-body" class="divide-y divide-surface-border/60">
+                                <!-- Rendered dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- MODALS                                         -->
+    <!-- ============================================== -->
+
+    <!-- 1. Special Edit/Add Modal -->
+    <div id="modal-special" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-surface border border-surface-border rounded-xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button class="btn-close-modal absolute top-4 right-4 text-neutral-400 hover:text-white text-xl">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            <h3 class="font-heading text-2xl font-bold text-white mb-4" id="modal-special-title">Add Special</h3>
+            
+            <form id="form-special" class="space-y-4">
+                <input type="hidden" id="special-id">
+                
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Dish Name *</label>
+                    <input type="text" id="special-name" required placeholder="e.g. Truffle Pesto Pasta"
+                        class="w-full bg-charcoal border border-surface-border rounded-lg px-3 py-2 text-xs text-white gold-border-glow">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Price (NPR) *</label>
+                        <input type="number" id="special-price" step="10" required placeholder="350"
+                            class="w-full bg-charcoal border border-surface-border rounded-lg px-3 py-2 text-xs text-white gold-border-glow">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Sort Order</label>
+                        <input type="number" id="special-order" placeholder="1"
+                            class="w-full bg-charcoal border border-surface-border rounded-lg px-3 py-2 text-xs text-white gold-border-glow">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Description</label>
+                    <textarea id="special-desc" rows="2" placeholder="Freshly tossed with herbs..."
+                        class="w-full bg-charcoal border border-surface-border rounded-lg px-3 py-2 text-xs text-white gold-border-glow"></textarea>
+                </div>
+
+                <!-- Photo Upload Section -->
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Dish Photo</label>
+                    <div class="space-y-2">
+                        <input type="text" id="special-image-url" placeholder="food/dish.webp or Storage URL"
+                            class="w-full bg-charcoal border border-surface-border rounded-lg px-3 py-2 text-xs text-white gold-border-glow">
+                        <div class="flex items-center gap-2">
+                            <label class="cursor-pointer bg-charcoal hover:bg-surface-border border border-surface-border text-neutral-300 text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 transition">
+                                <ion-icon name="cloud-upload-outline"></ion-icon>
+                                <span>Upload to Storage</span>
+                                <input type="file" id="special-file-input" accept="image/*" class="hidden">
+                            </label>
+                            <span id="upload-status" class="text-[11px] text-neutral-400"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6 pt-2">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="special-is-new" class="accent-gold w-4 h-4 rounded">
+                        <span class="text-xs font-semibold text-neutral-300">Feature 'NEW' Gold Ribbon</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="special-is-active" checked class="accent-gold w-4 h-4 rounded">
+                        <span class="text-xs font-semibold text-neutral-300">Visible on Website</span>
+                    </label>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-surface-border">
+                    <button type="button" class="btn-cancel-modal px-4 py-2 rounded-lg bg-charcoal text-neutral-400 hover:text-white text-xs font-medium">Cancel</button>
+                    <button type="submit" id="special-submit-btn" class="px-5 py-2 rounded-lg bg-gold hover:bg-gold-light text-obsidian text-xs font-bold uppercase tracking-wider transition">Save Special</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. Menu Item Edit/Add Modal -->
+    <div id="modal-menu-item" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-surface border border-surface-border rounded-xl max-w-md w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button class="btn-close-modal absolute top-4 right-4 text-neutral-400 hover:text-white text-xl">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            <h3 class="font-heading text-2xl font-bold text-white mb-4" id="modal-menu-title">Add Menu Dish</h3>
+            
+            <form id="form-menu-item" class="space-y-4">
+                <input type="hidden" id="menu-item-id">
+                
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Dish Name *</label>
+                    <input type="text" id="menu-item-name" required placeholder="e.g. Crispy Fried Mushroom"
+                        class="w-full bg-charcoal border border-surface-border rounded-lg px-3 py-2 text-xs text-white gold-border-glow">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Category *</label>
+                        <select id="menu-item-category" required class="w-full bg-charcoal border border-surface-border rounded-lg px-3 py-2 text-xs text-white gold-border-glow">
+                            <option value="starters">Starters</option>
+                            <option value="soups">Soups</option>
+                            <option value="momo">MoMo</option>
+                            <option value="burgers">Burgers</option>
+                            <option value="majors">Mains & Rice</option>
+                            <option value="pasta">Pasta</option>
+                            <option value="drinks">Drinks</option>
+                            <option value="liquor">Bar Menu</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Subcategory</label>
+                        <input type="text" id="menu-item-subcategory" placeholder="e.g. Veg. Starters"
+                            class="w-full bg-charcoal border border-surface-border rounded-lg px-3 py-2 text-xs text-white gold-border-glow">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Price (NPR) *</label>
+                        <input type="number" id="menu-item-price" step="10" required placeholder="300"
+                            class="w-full bg-charcoal border border-surface-border rounded-lg px-3 py-2 text-xs text-white gold-border-glow">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Sort Order</label>
+                        <input type="number" id="menu-item-order" placeholder="1"
+                            class="w-full bg-charcoal border border-surface-border rounded-lg px-3 py-2 text-xs text-white gold-border-glow">
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6 pt-2">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="menu-item-is-new" class="accent-gold w-4 h-4 rounded">
+                        <span class="text-xs font-semibold text-neutral-300">Feature 'NEW' Badge</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="menu-item-is-active" checked class="accent-gold w-4 h-4 rounded">
+                        <span class="text-xs font-semibold text-neutral-300">In Stock</span>
+                    </label>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-surface-border">
+                    <button type="button" class="btn-cancel-modal px-4 py-2 rounded-lg bg-charcoal text-neutral-400 hover:text-white text-xs font-medium">Cancel</button>
+                    <button type="submit" id="menu-item-submit-btn" class="px-5 py-2 rounded-lg bg-gold hover:bg-gold-light text-obsidian text-xs font-bold uppercase tracking-wider transition">Save Dish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. Liquor Item Edit/Add Modal -->
+    <div id="modal-liquor" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-surface border border-surface-border rounded-xl max-w-md w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button class="btn-close-modal absolute top-4 right-4 text-neutral-400 hover:text-white text-xl">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            <h3 class="font-heading text-2xl font-bold text-white mb-4" id="modal-liquor-title">Add Liquor Brand</h3>
+            
+            <form id="form-liquor" class="space-y-4">
+                <input type="hidden" id="liquor-id">
+                
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Brand Name *</label>
+                    <input type="text" id="liquor-brand" required placeholder="e.g. Royal Stag"
+                        class="w-full bg-charcoal border border-surface-border rounded-lg px-3 py-2 text-xs text-white gold-border-glow">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">60ml Price (NPR)</label>
+                        <input type="number" id="liquor-60" placeholder="350"
+                            class="w-full bg-charcoal border border-surface-border rounded-lg px-3 py-2 text-xs text-white gold-border-glow">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Quarter (180ml)</label>
+                        <input type="number" id="liquor-qtr" placeholder="730"
+                            class="w-full bg-charcoal border border-surface-border rounded-lg px-3 py-2 text-xs text-white gold-border-glow">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Half (375ml)</label>
+                        <input type="number" id="liquor-half" placeholder="1300"
+                            class="w-full bg-charcoal border border-surface-border rounded-lg px-3 py-2 text-xs text-white gold-border-glow">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Full (750ml)</label>
+                        <input type="number" id="liquor-full" placeholder="2500"
+                            class="w-full bg-charcoal border border-surface-border rounded-lg px-3 py-2 text-xs text-white gold-border-glow">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="flex items-center gap-2 cursor-pointer pt-2">
+                        <input type="checkbox" id="liquor-is-active" checked class="accent-gold w-4 h-4 rounded">
+                        <span class="text-xs font-semibold text-neutral-300">In Stock</span>
+                    </label>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-surface-border">
+                    <button type="button" class="btn-cancel-modal px-4 py-2 rounded-lg bg-charcoal text-neutral-400 hover:text-white text-xs font-medium">Cancel</button>
+                    <button type="submit" id="liquor-submit-btn" class="px-5 py-2 rounded-lg bg-gold hover:bg-gold-light text-obsidian text-xs font-bold uppercase tracking-wider transition">Save Brand</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts: Supabase CDN, Config, and Admin Controller -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <script>
+        (function () {
+            'use strict';
+
+            // Global State
+            let supabaseClient = null;
+            let currentTab = 'specials';
+            let activeCategory = 'all';
+            let specialsData = [];
+            let menuData = [];
+            let liquorData = [];
+
+            // UI Elements
+            const authView = document.getElementById('auth-view');
+            const dashboardView = document.getElementById('dashboard-view');
+            const loginForm = document.getElementById('login-form');
+            const loginError = document.getElementById('login-error');
+            const loginEmail = document.getElementById('login-email');
+            const loginPassword = document.getElementById('login-password');
+            const loginBtn = document.getElementById('login-btn');
+            const loginBtnText = document.getElementById('login-btn-text');
+            const loginBtnSpinner = document.getElementById('login-btn-spinner');
+            const togglePassword = document.getElementById('toggle-password');
+            const logoutBtn = document.getElementById('logout-btn');
+            const userEmailDisplay = document.getElementById('user-email-display');
+
+            // Modals
+            const confirmModal = document.getElementById('confirm-modal');
+            const confirmTitle = document.getElementById('confirm-title');
+            const confirmMessage = document.getElementById('confirm-message');
+            const confirmOkBtn = document.getElementById('confirm-ok-btn');
+            const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
+            let confirmCallback = null;
+
+            // Toast Helper
+            function showToast(message, type = 'success') {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                const isSuccess = type === 'success';
+                toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl border shadow-xl text-xs font-medium transform transition duration-300 translate-y-2 opacity-0 ${
+                    isSuccess ? 'bg-charcoal border-gold/40 text-white' : 'bg-charcoal border-crimson/50 text-red-200'
+                }`;
+                toast.innerHTML = `
+                    <ion-icon name="${isSuccess ? 'checkmark-circle' : 'alert-circle'}" class="text-lg ${isSuccess ? 'text-gold' : 'text-crimson'}"></ion-icon>
+                    <span>${message}</span>
+                `;
+                container.appendChild(toast);
+                requestAnimationFrame(() => {
+                    toast.classList.remove('translate-y-2', 'opacity-0');
+                });
+                setTimeout(() => {
+                    toast.classList.add('translate-y-2', 'opacity-0');
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+
+            // Confirm Dialog Helper
+            function showConfirm(title, message, onConfirm) {
+                confirmTitle.textContent = title;
+                confirmMessage.textContent = message;
+                confirmCallback = onConfirm;
+                confirmModal.classList.remove('hidden');
+            }
+
+            confirmCancelBtn.addEventListener('click', () => {
+                confirmModal.classList.add('hidden');
+                confirmCallback = null;
+            });
+
+            confirmOkBtn.addEventListener('click', () => {
+                confirmModal.classList.add('hidden');
+                if (typeof confirmCallback === 'function') confirmCallback();
+                confirmCallback = null;
+            });
+
+            // Password Toggle
+            togglePassword.addEventListener('click', () => {
+                const type = loginPassword.type === 'password' ? 'text' : 'password';
+                loginPassword.type = type;
+                togglePassword.querySelector('ion-icon').setAttribute('name', type === 'password' ? 'eye-outline' : 'eye-off-outline');
+            });
+
+            // Initialize Supabase Client
+            function initSupabase() {
+                if (typeof SUPABASE_URL === 'undefined' || typeof SUPABASE_ANON_KEY === 'undefined' ||
+                    !SUPABASE_URL || !SUPABASE_ANON_KEY || SUPABASE_URL.includes('YOUR_SUPABASE')) {
+                    showToast('Supabase credentials not configured in supabase-config.js', 'error');
+                    return null;
+                }
+                return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            }
+
+            // ==========================================
+            // AUTHENTICATION FLOW
+            // ==========================================
+            async function checkSession() {
+                if (!supabaseClient) return;
+                try {
+                    const { data: { session }, error } = await supabaseClient.auth.getSession();
+                    if (session && session.user) {
+                        showDashboard(session.user);
+                    } else {
+                        showAuth();
+                    }
+                } catch (e) {
+                    showAuth();
+                }
+            }
+
+            function showAuth() {
+                authView.classList.remove('hidden');
+                dashboardView.classList.add('hidden');
+            }
+
+            function showDashboard(user) {
+                authView.classList.add('hidden');
+                dashboardView.classList.remove('hidden');
+                if (user && user.email) {
+                    userEmailDisplay.textContent = user.email;
+                }
+                loadAllData();
+            }
+
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                loginError.classList.add('hidden');
+                loginBtnText.textContent = 'Signing In...';
+                loginBtnSpinner.classList.remove('hidden');
+                loginBtn.disabled = true;
+
+                try {
+                    const email = loginEmail.value.trim();
+                    const password = loginPassword.value;
+                    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+                    if (error) throw error;
+                    showToast('Welcome back to Treat Up Admin!');
+                    showDashboard(data.user);
+                } catch (err) {
+                    loginError.textContent = err.message || 'Invalid credentials. Please verify your staff login.';
+                    loginError.classList.remove('hidden');
+                } finally {
+                    loginBtnText.textContent = 'Sign In';
+                    loginBtnSpinner.classList.add('hidden');
+                    loginBtn.disabled = false;
+                }
+            });
+
+            logoutBtn.addEventListener('click', async () => {
+                try {
+                    await supabaseClient.auth.signOut();
+                    showToast('Signed out successfully.');
+                    showAuth();
+                } catch (err) {
+                    showToast('Error signing out.', 'error');
+                }
+            });
+
+            // ==========================================
+            // TAB SWITCHING
+            // ==========================================
+            document.querySelectorAll('.nav-tab').forEach(tabBtn => {
+                tabBtn.addEventListener('click', () => {
+                    const tab = tabBtn.getAttribute('data-tab');
+                    currentTab = tab;
+
+                    document.querySelectorAll('.nav-tab').forEach(t => {
+                        t.classList.remove('active', 'text-gold', 'bg-surface', 'border-b-2', 'border-gold');
+                        t.classList.add('text-neutral-400');
+                    });
+                    tabBtn.classList.add('active', 'text-gold', 'bg-surface', 'border-b-2', 'border-gold');
+                    tabBtn.classList.remove('text-neutral-400');
+
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                    document.getElementById(`tab-${tab}`).classList.remove('hidden');
+                });
+            });
+
+            // ==========================================
+            // DATA FETCHING & RENDERING
+            // ==========================================
+            async function loadAllData() {
+                await Promise.all([loadSpecials(), loadMenuItems(), loadLiquor()]);
+            }
+
+            // 1. Specials Tab Logic
+            async function loadSpecials() {
+                const { data, error } = await supabaseClient
+                    .from('specials')
+                    .select('*')
+                    .order('sort_order', { ascending: true });
+
+                if (error) {
+                    showToast('Failed to load specials.', 'error');
+                    return;
+                }
+                specialsData = data || [];
+                document.getElementById('badge-specials').textContent = specialsData.length;
+                renderSpecials();
+            }
+
+            function renderSpecials(filterText = '') {
+                const grid = document.getElementById('specials-grid');
+                grid.innerHTML = '';
+
+                const filtered = specialsData.filter(s =>
+                    s.name.toLowerCase().includes(filterText.toLowerCase()) ||
+                    (s.description || '').toLowerCase().includes(filterText.toLowerCase())
+                );
+
+                if (filtered.length === 0) {
+                    grid.innerHTML = `<div class="col-span-full py-12 text-center text-neutral-500 text-sm">No specials found.</div>`;
+                    return;
+                }
+
+                filtered.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = `bg-charcoal border rounded-xl overflow-hidden shadow-lg transition hover:border-gold/40 flex flex-col ${
+                        item.is_active ? 'border-surface-border' : 'border-surface-border/40 opacity-60'
+                    }`;
+
+                    card.innerHTML = `
+                        <div class="relative h-44 bg-surface overflow-hidden">
+                            <img src="${item.image_url || 'favicon.png'}" alt="${item.name}" class="w-full h-full object-cover transition duration-300 hover:scale-105">
+                            ${item.is_new ? '<span class="absolute top-2.5 right-2.5 bg-gold text-obsidian text-[10px] font-black uppercase px-2.5 py-0.5 rounded shadow">NEW</span>' : ''}
+                            <button class="toggle-special-active absolute bottom-2 left-2 px-2 py-0.5 rounded text-[10px] font-bold uppercase transition ${
+                                item.is_active ? 'bg-green-600/90 text-white' : 'bg-neutral-700 text-neutral-300'
+                            }" data-id="${item.id}" data-active="${item.is_active}">
+                                ${item.is_active ? 'Active' : 'Hidden'}
+                            </button>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-start justify-between gap-2 mb-1.5">
+                                    <h4 class="font-bold text-white text-sm line-clamp-1">${item.name}</h4>
+                                    <!-- Inline Fast Price Edit -->
+                                    <div class="flex items-center gap-1 group cursor-pointer fast-price-edit" data-id="${item.id}" data-price="${item.price}" data-type="special">
+                                        <span class="text-gold font-bold text-sm">Rs. ${item.price}</span>
+                                        <ion-icon name="pencil-outline" class="text-neutral-500 group-hover:text-gold text-xs"></ion-icon>
+                                    </div>
+                                </div>
+                                <p class="text-neutral-400 text-xs line-clamp-2 mb-3">${item.description || 'No description provided.'}</p>
+                            </div>
+                            <div class="flex items-center justify-between pt-3 border-t border-surface-border/60">
+                                <span class="text-[10px] text-neutral-500 font-mono">Order #${item.sort_order || 0}</span>
+                                <div class="flex items-center gap-1.5">
+                                    <button class="btn-edit-special px-2.5 py-1 text-xs bg-surface hover:bg-surface-hover text-neutral-300 rounded border border-surface-border transition flex items-center gap-1" data-id="${item.id}">
+                                        <ion-icon name="create-outline"></ion-icon>
+                                        <span>Edit</span>
+                                    </button>
+                                    <button class="btn-delete-special p-1.5 text-xs text-neutral-500 hover:text-crimson hover:bg-crimson/10 rounded transition" data-id="${item.id}" data-name="${item.name}">
+                                        <ion-icon name="trash-outline" class="text-sm"></ion-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                attachSpecialEvents();
+            }
+
+            function attachSpecialEvents() {
+                // Inline fast price edit
+                document.querySelectorAll('.fast-price-edit[data-type="special"]').forEach(el => {
+                    el.addEventListener('click', () => makePriceEditable(el, 'specials', 'price'));
+                });
+
+                // Toggle active
+                document.querySelectorAll('.toggle-special-active').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const id = btn.getAttribute('data-id');
+                        const currentActive = btn.getAttribute('data-active') === 'true';
+                        const newActive = !currentActive;
+
+                        const { error } = await supabaseClient.from('specials').update({ is_active: newActive }).eq('id', id);
+                        if (error) {
+                            showToast('Failed to update status', 'error');
+                            return;
+                        }
+                        showToast(`Special ${newActive ? 'activated' : 'hidden'}`);
+                        loadSpecials();
+                    });
+                });
+
+                // Edit Modal
+                document.querySelectorAll('.btn-edit-special').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.getAttribute('data-id');
+                        const special = specialsData.find(s => s.id === id);
+                        if (!special) return;
+
+                        document.getElementById('modal-special-title').textContent = 'Edit Special';
+                        document.getElementById('special-id').value = special.id;
+                        document.getElementById('special-name').value = special.name;
+                        document.getElementById('special-price').value = special.price;
+                        document.getElementById('special-order').value = special.sort_order || 0;
+                        document.getElementById('special-desc').value = special.description || '';
+                        document.getElementById('special-image-url').value = special.image_url || '';
+                        document.getElementById('special-is-new').checked = Boolean(special.is_new);
+                        document.getElementById('special-is-active').checked = Boolean(special.is_active);
+                        document.getElementById('modal-special').classList.remove('hidden');
+                    });
+                });
+
+                // Delete
+                document.querySelectorAll('.btn-delete-special').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.getAttribute('data-id');
+                        const name = btn.getAttribute('data-name');
+                        showConfirm('Delete Special', `Are you sure you want to delete "${name}"?`, async () => {
+                            const { error } = await supabaseClient.from('specials').delete().eq('id', id);
+                            if (error) {
+                                showToast('Failed to delete special', 'error');
+                                return;
+                            }
+                            showToast(`"${name}" deleted.`);
+                            loadSpecials();
+                        });
+                    });
+                });
+            }
+
+            document.getElementById('search-specials').addEventListener('input', (e) => {
+                renderSpecials(e.target.value);
+            });
+
+            document.getElementById('btn-add-special').addEventListener('click', () => {
+                document.getElementById('modal-special-title').textContent = 'Add Special';
+                document.getElementById('form-special').reset();
+                document.getElementById('special-id').value = '';
+                document.getElementById('special-is-active').checked = true;
+                document.getElementById('modal-special').classList.remove('hidden');
+            });
+
+            // Special Form Submit (Insert or Update)
+            document.getElementById('form-special').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const id = document.getElementById('special-id').value;
+                const payload = {
+                    name: document.getElementById('special-name').value.trim(),
+                    price: parseFloat(document.getElementById('special-price').value),
+                    sort_order: parseInt(document.getElementById('special-order').value) || 0,
+                    description: document.getElementById('special-desc').value.trim(),
+                    image_url: document.getElementById('special-image-url').value.trim(),
+                    is_new: document.getElementById('special-is-new').checked,
+                    is_active: document.getElementById('special-is-active').checked
+                };
+
+                let res;
+                if (id) {
+                    res = await supabaseClient.from('specials').update(payload).eq('id', id);
+                } else {
+                    res = await supabaseClient.from('specials').insert([payload]);
+                }
+
+                if (res.error) {
+                    showToast('Failed to save special: ' + res.error.message, 'error');
+                    return;
+                }
+                showToast(id ? 'Special updated successfully!' : 'New special created!');
+                document.getElementById('modal-special').classList.add('hidden');
+                loadSpecials();
+            });
+
+            // Image File Upload Handler
+            document.getElementById('special-file-input').addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const statusEl = document.getElementById('upload-status');
+                statusEl.textContent = 'Uploading...';
+                statusEl.className = 'text-[11px] text-gold animate-pulse';
+
+                try {
+                    const ext = file.name.split('.').pop();
+                    const fileName = `special-${Date.now()}.${ext}`;
+
+                    const { data, error } = await supabaseClient.storage
+                        .from('specials-images')
+                        .upload(fileName, file, { cacheControl: '3600', upsert: true });
+
+                    if (error) throw error;
+
+                    const { data: pubData } = supabaseClient.storage
+                        .from('specials-images')
+                        .getPublicUrl(fileName);
+
+                    document.getElementById('special-image-url').value = pubData.publicUrl;
+                    statusEl.textContent = 'Upload complete!';
+                    statusEl.className = 'text-[11px] text-green-400';
+                    showToast('Photo uploaded to storage!');
+                } catch (err) {
+                    statusEl.textContent = 'Upload failed: ' + err.message;
+                    statusEl.className = 'text-[11px] text-crimson';
+                    showToast('Image upload failed', 'error');
+                }
+            });
+
+
+            // ==========================================
+            // 2. Menu Items Tab Logic
+            // ==========================================
+            async function loadMenuItems() {
+                const { data, error } = await supabaseClient
+                    .from('menu_items')
+                    .select('*')
+                    .order('sort_order', { ascending: true });
+
+                if (error) {
+                    showToast('Failed to load menu items.', 'error');
+                    return;
+                }
+                menuData = data || [];
+                document.getElementById('badge-menu').textContent = menuData.length;
+                renderMenuItems();
+            }
+
+            function renderMenuItems(filterText = '') {
+                const tbody = document.getElementById('menu-items-table-body');
+                tbody.innerHTML = '';
+
+                let filtered = menuData;
+                if (activeCategory !== 'all') {
+                    filtered = filtered.filter(m => m.category === activeCategory);
+                }
+                if (filterText) {
+                    filtered = filtered.filter(m =>
+                        m.name.toLowerCase().includes(filterText.toLowerCase()) ||
+                        (m.sub_category || '').toLowerCase().includes(filterText.toLowerCase())
+                    );
+                }
+
+                if (filtered.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-neutral-500">No menu items found.</td></tr>`;
+                    return;
+                }
+
+                filtered.forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.className = `hover:bg-surface/50 transition ${item.is_active ? '' : 'opacity-50'}`;
+                    tr.innerHTML = `
+                        <td class="py-3 px-4 font-medium text-white">
+                            <span>${item.name}</span>
+                        </td>
+                        <td class="py-3 px-4">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-surface border border-surface-border text-neutral-300 uppercase">${item.category}</span>
+                        </td>
+                        <td class="py-3 px-4 text-neutral-400">${item.sub_category || '-'}</td>
+                        <td class="py-3 px-4 font-bold text-gold">
+                            <div class="flex items-center gap-1 group cursor-pointer fast-price-edit" data-id="${item.id}" data-price="${item.price}" data-type="menu_item">
+                                <span>Rs. ${item.price}</span>
+                                <ion-icon name="pencil-outline" class="text-neutral-500 group-hover:text-gold text-xs"></ion-icon>
+                            </div>
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <button class="toggle-stock px-2.5 py-0.5 rounded-full text-[10px] font-bold transition ${
+                                item.is_active ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-neutral-800 text-neutral-500 border border-neutral-700'
+                            }" data-id="${item.id}" data-active="${item.is_active}">
+                                ${item.is_active ? 'In Stock' : 'Out of Stock'}
+                            </button>
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <button class="toggle-new-badge px-2 py-0.5 rounded text-[10px] font-bold uppercase transition ${
+                                item.is_new ? 'bg-gold/20 text-gold border border-gold/40' : 'bg-surface text-neutral-600 border border-surface-border'
+                            }" data-id="${item.id}" data-new="${item.is_new}">
+                                ${item.is_new ? 'NEW' : '-'}
+                            </button>
+                        </td>
+                        <td class="py-3 px-4 text-right">
+                            <div class="flex items-center justify-end gap-1.5">
+                                <button class="btn-edit-menu p-1 text-neutral-400 hover:text-white rounded hover:bg-surface transition" data-id="${item.id}">
+                                    <ion-icon name="create-outline" class="text-sm"></ion-icon>
+                                </button>
+                                <button class="btn-delete-menu p-1 text-neutral-500 hover:text-crimson rounded hover:bg-crimson/10 transition" data-id="${item.id}" data-name="${item.name}">
+                                    <ion-icon name="trash-outline" class="text-sm"></ion-icon>
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                attachMenuEvents();
+            }
+
+            function attachMenuEvents() {
+                // Inline price edit
+                document.querySelectorAll('.fast-price-edit[data-type="menu_item"]').forEach(el => {
+                    el.addEventListener('click', () => makePriceEditable(el, 'menu_items', 'price'));
+                });
+
+                // Toggle In Stock / Out of Stock
+                document.querySelectorAll('.toggle-stock').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const id = btn.getAttribute('data-id');
+                        const current = btn.getAttribute('data-active') === 'true';
+                        const newActive = !current;
+
+                        const { error } = await supabaseClient.from('menu_items').update({ is_active: newActive }).eq('id', id);
+                        if (error) {
+                            showToast('Failed to update stock', 'error');
+                            return;
+                        }
+                        showToast(`Status updated: ${newActive ? 'In Stock' : 'Out of Stock'}`);
+                        loadMenuItems();
+                    });
+                });
+
+                // Toggle NEW Badge
+                document.querySelectorAll('.toggle-new-badge').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const id = btn.getAttribute('data-id');
+                        const current = btn.getAttribute('data-new') === 'true';
+                        const newBadge = !current;
+
+                        const { error } = await supabaseClient.from('menu_items').update({ is_new: newBadge }).eq('id', id);
+                        if (error) {
+                            showToast('Failed to toggle badge', 'error');
+                            return;
+                        }
+                        showToast(`Badge ${newBadge ? 'added' : 'removed'}`);
+                        loadMenuItems();
+                    });
+                });
+
+                // Edit Modal
+                document.querySelectorAll('.btn-edit-menu').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.getAttribute('data-id');
+                        const item = menuData.find(m => m.id === id);
+                        if (!item) return;
+
+                        document.getElementById('modal-menu-title').textContent = 'Edit Menu Dish';
+                        document.getElementById('menu-item-id').value = item.id;
+                        document.getElementById('menu-item-name').value = item.name;
+                        document.getElementById('menu-item-category').value = item.category;
+                        document.getElementById('menu-item-subcategory').value = item.sub_category || '';
+                        document.getElementById('menu-item-price').value = item.price;
+                        document.getElementById('menu-item-order').value = item.sort_order || 0;
+                        document.getElementById('menu-item-is-new').checked = Boolean(item.is_new);
+                        document.getElementById('menu-item-is-active').checked = Boolean(item.is_active);
+                        document.getElementById('modal-menu-item').classList.remove('hidden');
+                    });
+                });
+
+                // Delete
+                document.querySelectorAll('.btn-delete-menu').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.getAttribute('data-id');
+                        const name = btn.getAttribute('data-name');
+                        showConfirm('Delete Dish', `Are you sure you want to delete "${name}"?`, async () => {
+                            const { error } = await supabaseClient.from('menu_items').delete().eq('id', id);
+                            if (error) {
+                                showToast('Failed to delete item', 'error');
+                                return;
+                            }
+                            showToast(`"${name}" deleted.`);
+                            loadMenuItems();
+                        });
+                    });
+                });
+            }
+
+            // Category filter pills
+            document.querySelectorAll('.cat-pill').forEach(pill => {
+                pill.addEventListener('click', () => {
+                    activeCategory = pill.getAttribute('data-cat');
+                    document.querySelectorAll('.cat-pill').forEach(p => {
+                        p.classList.remove('active', 'bg-gold', 'text-obsidian');
+                        p.classList.add('bg-surface', 'border', 'border-surface-border', 'text-neutral-400');
+                    });
+                    pill.classList.add('active', 'bg-gold', 'text-obsidian');
+                    pill.classList.remove('bg-surface', 'border', 'border-surface-border', 'text-neutral-400');
+                    renderMenuItems(document.getElementById('search-menu').value);
+                });
+            });
+
+            document.getElementById('search-menu').addEventListener('input', (e) => {
+                renderMenuItems(e.target.value);
+            });
+
+            document.getElementById('btn-add-menu-item').addEventListener('click', () => {
+                document.getElementById('modal-menu-title').textContent = 'Add Menu Dish';
+                document.getElementById('form-menu-item').reset();
+                document.getElementById('menu-item-id').value = '';
+                document.getElementById('menu-item-is-active').checked = true;
+                document.getElementById('modal-menu-item').classList.remove('hidden');
+            });
+
+            document.getElementById('form-menu-item').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const id = document.getElementById('menu-item-id').value;
+                const payload = {
+                    name: document.getElementById('menu-item-name').value.trim(),
+                    category: document.getElementById('menu-item-category').value,
+                    sub_category: document.getElementById('menu-item-subcategory').value.trim(),
+                    price: parseFloat(document.getElementById('menu-item-price').value),
+                    sort_order: parseInt(document.getElementById('menu-item-order').value) || 0,
+                    is_new: document.getElementById('menu-item-is-new').checked,
+                    is_active: document.getElementById('menu-item-is-active').checked
+                };
+
+                let res;
+                if (id) {
+                    res = await supabaseClient.from('menu_items').update(payload).eq('id', id);
+                } else {
+                    res = await supabaseClient.from('menu_items').insert([payload]);
+                }
+
+                if (res.error) {
+                    showToast('Failed to save dish: ' + res.error.message, 'error');
+                    return;
+                }
+                showToast(id ? 'Dish updated successfully!' : 'New dish added!');
+                document.getElementById('modal-menu-item').classList.add('hidden');
+                loadMenuItems();
+            });
+
+
+            // ==========================================
+            // 3. Bar & Liquor Tab Logic
+            // ==========================================
+            async function loadLiquor() {
+                const { data, error } = await supabaseClient
+                    .from('liquor_items')
+                    .select('*')
+                    .order('sort_order', { ascending: true });
+
+                if (error) {
+                    showToast('Failed to load liquor items.', 'error');
+                    return;
+                }
+                liquorData = data || [];
+                document.getElementById('badge-liquor').textContent = liquorData.length;
+                renderLiquor();
+            }
+
+            function renderLiquor(filterText = '') {
+                const tbody = document.getElementById('liquor-table-body');
+                tbody.innerHTML = '';
+
+                const filtered = liquorData.filter(l =>
+                    l.brand.toLowerCase().includes(filterText.toLowerCase())
+                );
+
+                if (filtered.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-neutral-500">No liquor brands found.</td></tr>`;
+                    return;
+                }
+
+                filtered.forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.className = `hover:bg-surface/50 transition ${item.is_active ? '' : 'opacity-50'}`;
+                    tr.innerHTML = `
+                        <td class="py-3 px-4 font-bold text-white">${item.brand}</td>
+                        <td class="py-3 px-4">
+                            <div class="flex items-center gap-1 group cursor-pointer fast-price-edit" data-id="${item.id}" data-price="${item.ml_60 || ''}" data-type="liquor" data-field="ml_60">
+                                <span class="text-gold font-bold">${item.ml_60 ? 'Rs. ' + item.ml_60 : '-'}</span>
+                                <ion-icon name="pencil-outline" class="text-neutral-500 group-hover:text-gold text-xs"></ion-icon>
+                            </div>
+                        </td>
+                        <td class="py-3 px-4">
+                            <div class="flex items-center gap-1 group cursor-pointer fast-price-edit" data-id="${item.id}" data-price="${item.qtr || ''}" data-type="liquor" data-field="qtr">
+                                <span class="text-gold font-bold">${item.qtr ? 'Rs. ' + item.qtr : '-'}</span>
+                                <ion-icon name="pencil-outline" class="text-neutral-500 group-hover:text-gold text-xs"></ion-icon>
+                            </div>
+                        </td>
+                        <td class="py-3 px-4">
+                            <div class="flex items-center gap-1 group cursor-pointer fast-price-edit" data-id="${item.id}" data-price="${item.half || ''}" data-type="liquor" data-field="half">
+                                <span class="text-gold font-bold">${item.half ? 'Rs. ' + item.half : '-'}</span>
+                                <ion-icon name="pencil-outline" class="text-neutral-500 group-hover:text-gold text-xs"></ion-icon>
+                            </div>
+                        </td>
+                        <td class="py-3 px-4">
+                            <div class="flex items-center gap-1 group cursor-pointer fast-price-edit" data-id="${item.id}" data-price="${item.full || ''}" data-type="liquor" data-field="full">
+                                <span class="text-gold font-bold">${item.full ? 'Rs. ' + item.full : '-'}</span>
+                                <ion-icon name="pencil-outline" class="text-neutral-500 group-hover:text-gold text-xs"></ion-icon>
+                            </div>
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <button class="toggle-liquor-active px-2.5 py-0.5 rounded-full text-[10px] font-bold transition ${
+                                item.is_active ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-neutral-800 text-neutral-500 border border-neutral-700'
+                            }" data-id="${item.id}" data-active="${item.is_active}">
+                                ${item.is_active ? 'In Stock' : 'Out of Stock'}
+                            </button>
+                        </td>
+                        <td class="py-3 px-4 text-right">
+                            <div class="flex items-center justify-end gap-1.5">
+                                <button class="btn-edit-liquor p-1 text-neutral-400 hover:text-white rounded hover:bg-surface transition" data-id="${item.id}">
+                                    <ion-icon name="create-outline" class="text-sm"></ion-icon>
+                                </button>
+                                <button class="btn-delete-liquor p-1 text-neutral-500 hover:text-crimson rounded hover:bg-crimson/10 transition" data-id="${item.id}" data-brand="${item.brand}">
+                                    <ion-icon name="trash-outline" class="text-sm"></ion-icon>
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                attachLiquorEvents();
+            }
+
+            function attachLiquorEvents() {
+                // Multi-tier fast inline price edits
+                document.querySelectorAll('.fast-price-edit[data-type="liquor"]').forEach(el => {
+                    const field = el.getAttribute('data-field');
+                    el.addEventListener('click', () => makePriceEditable(el, 'liquor_items', field));
+                });
+
+                // Toggle active
+                document.querySelectorAll('.toggle-liquor-active').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const id = btn.getAttribute('data-id');
+                        const current = btn.getAttribute('data-active') === 'true';
+                        const newActive = !current;
+
+                        const { error } = await supabaseClient.from('liquor_items').update({ is_active: newActive }).eq('id', id);
+                        if (error) {
+                            showToast('Failed to update status', 'error');
+                            return;
+                        }
+                        showToast(`Status updated: ${newActive ? 'In Stock' : 'Out of Stock'}`);
+                        loadLiquor();
+                    });
+                });
+
+                // Edit Modal
+                document.querySelectorAll('.btn-edit-liquor').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.getAttribute('data-id');
+                        const item = liquorData.find(l => l.id === id);
+                        if (!item) return;
+
+                        document.getElementById('modal-liquor-title').textContent = 'Edit Liquor Brand';
+                        document.getElementById('liquor-id').value = item.id;
+                        document.getElementById('liquor-brand').value = item.brand;
+                        document.getElementById('liquor-60').value = item.ml_60 || '';
+                        document.getElementById('liquor-qtr').value = item.qtr || '';
+                        document.getElementById('liquor-half').value = item.half || '';
+                        document.getElementById('liquor-full').value = item.full || '';
+                        document.getElementById('liquor-is-active').checked = Boolean(item.is_active);
+                        document.getElementById('modal-liquor').classList.remove('hidden');
+                    });
+                });
+
+                // Delete
+                document.querySelectorAll('.btn-delete-liquor').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.getAttribute('data-id');
+                        const brand = btn.getAttribute('data-brand');
+                        showConfirm('Delete Brand', `Are you sure you want to delete "${brand}"?`, async () => {
+                            const { error } = await supabaseClient.from('liquor_items').delete().eq('id', id);
+                            if (error) {
+                                showToast('Failed to delete brand', 'error');
+                                return;
+                            }
+                            showToast(`"${brand}" deleted.`);
+                            loadLiquor();
+                        });
+                    });
+                });
+            }
+
+            document.getElementById('search-liquor').addEventListener('input', (e) => {
+                renderLiquor(e.target.value);
+            });
+
+            document.getElementById('btn-add-liquor').addEventListener('click', () => {
+                document.getElementById('modal-liquor-title').textContent = 'Add Liquor Brand';
+                document.getElementById('form-liquor').reset();
+                document.getElementById('liquor-id').value = '';
+                document.getElementById('liquor-is-active').checked = true;
+                document.getElementById('modal-liquor').classList.remove('hidden');
+            });
+
+            document.getElementById('form-liquor').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const id = document.getElementById('liquor-id').value;
+                const parseNum = (val) => val ? parseFloat(val) : null;
+                const payload = {
+                    brand: document.getElementById('liquor-brand').value.trim(),
+                    ml_60: parseNum(document.getElementById('liquor-60').value),
+                    qtr: parseNum(document.getElementById('liquor-qtr').value),
+                    half: parseNum(document.getElementById('liquor-half').value),
+                    full: parseNum(document.getElementById('liquor-full').value),
+                    is_active: document.getElementById('liquor-is-active').checked
+                };
+
+                let res;
+                if (id) {
+                    res = await supabaseClient.from('liquor_items').update(payload).eq('id', id);
+                } else {
+                    res = await supabaseClient.from('liquor_items').insert([payload]);
+                }
+
+                if (res.error) {
+                    showToast('Failed to save brand: ' + res.error.message, 'error');
+                    return;
+                }
+                showToast(id ? 'Brand updated successfully!' : 'New brand added!');
+                document.getElementById('modal-liquor').classList.add('hidden');
+                loadLiquor();
+            });
+
+
+            // ==========================================
+            // REUSABLE INLINE FAST PRICE EDITOR
+            // ==========================================
+            function makePriceEditable(containerEl, table, column) {
+                if (containerEl.querySelector('input')) return; // Already editing
+
+                const currentVal = containerEl.getAttribute('data-price') || '';
+                const id = containerEl.getAttribute('data-id');
+                const originalHtml = containerEl.innerHTML;
+
+                containerEl.innerHTML = `
+                    <div class="flex items-center gap-1">
+                        <input type="number" step="5" value="${currentVal}"
+                            class="w-20 bg-black border border-gold text-white text-xs px-1.5 py-0.5 rounded focus:outline-none">
+                        <button class="save-price-btn text-green-400 hover:text-green-300 p-0.5"><ion-icon name="checkmark-outline" class="text-base"></ion-icon></button>
+                        <button class="cancel-price-btn text-neutral-500 hover:text-white p-0.5"><ion-icon name="close-outline" class="text-base"></ion-icon></button>
+                    </div>
+                `;
+
+                const input = containerEl.querySelector('input');
+                const saveBtn = containerEl.querySelector('.save-price-btn');
+                const cancelBtn = containerEl.querySelector('.cancel-price-btn');
+
+                input.focus();
+                input.select();
+
+                const commitSave = async () => {
+                    const newVal = parseFloat(input.value);
+                    if (isNaN(newVal) || newVal < 0) {
+                        showToast('Please enter a valid price', 'error');
+                        return;
+                    }
+
+                    const updateObj = {};
+                    updateObj[column] = newVal;
+
+                    const { error } = await supabaseClient.from(table).update(updateObj).eq('id', id);
+                    if (error) {
+                        showToast('Failed to update price: ' + error.message, 'error');
+                        containerEl.innerHTML = originalHtml;
+                        return;
+                    }
+
+                    containerEl.setAttribute('data-price', newVal);
+                    showToast(`Price updated to Rs. ${newVal}!`);
+                    
+                    if (table === 'specials') loadSpecials();
+                    else if (table === 'menu_items') loadMenuItems();
+                    else if (table === 'liquor_items') loadLiquor();
+                };
+
+                saveBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    commitSave();
+                });
+
+                cancelBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    containerEl.innerHTML = originalHtml;
+                });
+
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        commitSave();
+                    } else if (e.key === 'Escape') {
+                        containerEl.innerHTML = originalHtml;
+                    }
+                });
+            }
+
+
+            // Modal Close Buttons
+            document.querySelectorAll('.btn-close-modal, .btn-cancel-modal').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('#modal-special, #modal-menu-item, #modal-liquor').forEach(m => m.classList.add('hidden'));
+                });
+            });
+
+            // Initialize on Load
+            supabaseClient = initSupabase();
+            if (supabaseClient) {
+                checkSession();
+                supabaseClient.auth.onAuthStateChange((event, session) => {
+                    if (session && session.user) {
+                        showDashboard(session.user);
+                    } else {
+                        showAuth();
+                    }
+                });
+            } else {
+                showAuth();
+            }
+
+        })();
+    </script>
+</body>
+
+</html>

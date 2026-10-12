@@ -218,8 +218,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initial Injection
+    // Initial Injection & Global Exposure
     injectCopyButtons();
+    window.injectCopyButtons = injectCopyButtons;
 
 
 

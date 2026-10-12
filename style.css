@@ -55,6 +55,109 @@ body {
 
 /* ... existing styles ... */
 
+/* PREMIUM SPECIALS HIGHLIGHT */
+.premium-item {
+    border: 1px solid var(--color-gold);
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.premium-item::before {
+    content: 'NEW';
+    position: absolute;
+    top: 15px;
+    right: -30px;
+    background: var(--color-gold);
+    color: var(--color-obsidian);
+    padding: 5px 30px;
+    transform: rotate(45deg);
+    font-size: 0.7rem;
+    font-weight: 800;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.premium-item .dish-header h4 {
+    color: var(--color-gold);
+}
+
+/* Ensure the image in premium items also has a subtle gold bottom border */
+.premium-item .menu-img {
+    border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+}
+
+/* Premium highlight for text-only specials */
+/* Update Home Button Hover */
+.category-scroll .cat-link[href="index.html"]:hover {
+    color: #fff !important;
+    border-color: #fff !important;
+}
+
+/* Premium Animation */
+@keyframes premiumBadgeSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(-8px) rotate(45deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(45deg);
+    }
+}
+
+/* Update existing Index.html premium items */
+.premium-item::before {
+    animation: premiumBadgeSlide 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+}
+
+/* Inline Badge System for Specials */
+.menu-list-item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.item-name-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 0;
+    flex-shrink: 1;
+    /* Allow shrinking if needed, but text wraps */
+}
+
+/* Override .item-name to work inside the group */
+.item-name-group .item-name {
+    padding-right: 0;
+    /* Remove padding as gap handles spacing */
+    flex-shrink: 0;
+    /* Let text wrap naturally */
+}
+
+.inline-new-badge {
+    background-color: #c5a059;
+    color: #000;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+    line-height: 1;
+    display: inline-block;
+}
+
+/* Ensure price stays right */
+.item-price {
+    flex-shrink: 0;
+    margin-left: 5px;
+}
+
+
 .item-name {
     font-family: var(--font-heading);
     font-size: 1.3rem;
@@ -455,7 +558,7 @@ img {
     width: 100%;
     height: 100%;
     /* Local Homepage Background */
-    background-image: url('homepagebg.png');
+    background-image: url('homepagebg.webp');
     background-size: cover;
     background-position: center;
     opacity: 0.6;
@@ -2237,7 +2340,7 @@ label {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.6), #000), url('homepagebg.png');
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.6), #000), url('homepagebg.webp');
     background-size: cover;
     background-position: center;
     opacity: 0.4;
@@ -2261,4 +2364,13 @@ label {
     letter-spacing: 4px;
     color: var(--color-gold);
     font-size: 1rem;
+}
+
+/* Force Home Button Underline to White */
+.category-scroll .cat-link[href="index.html"] {
+    color: #fff !important;
+}
+
+.category-scroll .cat-link[href="index.html"]::after {
+    background-color: #fff !important;
 }

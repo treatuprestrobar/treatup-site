@@ -1,11 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Treat Up Restaurant & Bar</title>
-
+    <meta name="description"
+        content="It’s all about the taste. TreatUp Restro & Bar brings a fresh focus on flavor to Biratnagar. Experience a place where every bite is crafted for satisfaction. Visit us today on Airport Mode!">
+    <link rel="icon" type="image/png" href="favicon.png">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,6 +22,27 @@
     <!-- Ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "TreatUp Restro and Bar",
+      "url": "https://treatup.com.np",
+      "hasMenu": "https://treatup.com.np/menu.html",
+      "potentialAction": [
+        {
+          "@type": "ViewAction",
+          "target": "https://treatup.com.np/menu.html",
+          "name": "View Menu"
+        },
+        {
+          "@type": "OrderAction",
+          "target": "https://wa.me/9779816168997?text=Hi%20Treat%20Up!%20I'd%20like%20to%20place%20an%20order.",
+          "name": "Order Now"
+        }
+      ]
+    }
+    </script>
 </head>
 
 <body>
@@ -34,7 +57,7 @@
         <div class="nav-container">
             <a href="#" class="logo-link">
                 <!-- Fallback text logo if image fails, but using image generally -->
-                <img src="Logo.png" alt="Treat Up" class="nav-logo">
+                <img src="Logo.webp" alt="Treat Up" class="nav-logo" width="337" height="400">
                 <span class="logo-text">Treat Up</span>
             </a>
 
@@ -42,10 +65,14 @@
                 <span class="line line-top"></span>
                 <span class="line line-bottom"></span>
             </div>
-            <ul class="nav-list" id="nav-list">
-                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="#menu" class="nav-link">Menu</a></li>
-                <li class="nav-item"><a href="#story" class="nav-link">Story</a></li>
+            <ul class="nav-list" id="nav-list" itemscope itemtype="http://schema.org/SiteNavigationElement">
+                <li class="nav-item"><a href="index.html" class="nav-link" itemprop="url"><span
+                            itemprop="name">Home</span></a></li>
+                <li class="nav-item"><a href="menu.html" class="nav-link" itemprop="url"><span
+                            itemprop="name">Menu</span></a></li>
+                <li class="nav-item"><a
+                        href="https://wa.me/9779816168997?text=Hi%20Treat%20Up!%20I'd%20like%20to%20place%20an%20order."
+                        class="nav-link" itemprop="url"><span itemprop="name">Order Now</span></a></li>
             </ul>
         </div>
     </nav>
@@ -59,7 +86,7 @@
 
                 <div class="reveal-text-wrapper">
                     <!-- Inline styles removed to be handled in CSS -->
-                    <h2 class="pre-title reveal-text">TREAT UP RESTAURANT & BAR</h2>
+                    <h2 class="pre-title reveal-text" itemprop="name">TREAT UP RESTAURANT & BAR</h2>
                 </div>
 
                 <div class="reveal-text-wrapper">
@@ -104,9 +131,10 @@
                     <div class="story-body">
                         <p class="story-text">
                             <span class="drop-cap">F</span>ounded in 2019, <strong>Treat Up Restaurant & Bar</strong>
-                            was born from a simple yet powerful mission: to bring uncompromising quality to the table.
-                            We wanted to create more than just a place to eat; we envisioned a sanctuary where culinary
-                            art meets warm hospitality.
+                            brings a <strong>fresh focus on flavor</strong> to <strong>Biratnagar</strong>.
+                            Born from a simple yet powerful mission: to bring uncompromising quality to the table in
+                            <strong>Airport Mode</strong>. We wanted to create more than just a place to eat;
+                            we envisioned a sanctuary where culinary art meets warm hospitality.
                         </p>
 
                         <!-- Extracted Stats Start -->
@@ -156,10 +184,98 @@
             <!-- Static Grid of Specials (No Tabs) -->
             <div class="menu-grid active" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
 
+                <!-- NEW PREMIUM SPECIALS -->
+
+                <!-- Spinach Pesto Pasta -->
+                <div class="menu-item fade-up premium-item">
+                    <img src="food/spanish pesto pasta.webp" alt="Spinach Pesto Pasta" class="menu-img" width="1024" height="1024" loading="lazy">
+                    <div class="dish-info">
+                        <div class="dish-header">
+                            <h4>Spinach Pesto Pasta</h4>
+                            <span class="price">Rs. 350</span>
+                        </div>
+                        <p class="dish-desc">Fresh spinach pesto sauce tossed with al dente pasta.</p>
+                    </div>
+                </div>
+
+                <!-- Chicken Steak with Creamy Mushroom -->
+                <div class="menu-item fade-up premium-item delay-1">
+                    <img src="food/chicken steak w mushroom.webp" alt="Chicken Steak Mushroom" class="menu-img" width="1024" height="1536" loading="lazy">
+                    <div class="dish-info">
+                        <div class="dish-header">
+                            <h4>Chicken Steak w/ Mushroom</h4>
+                            <span class="price">Rs. 450</span>
+                        </div>
+                        <p class="dish-desc">Juicy steak topped with rich creamy mushroom sauce.</p>
+                    </div>
+                </div>
+
+                <!-- Spicy Spaghetti -->
+                <div class="menu-item fade-up premium-item delay-2">
+                    <img src="food/spicy spaghetti.webp" alt="Spicy Spaghetti" class="menu-img" width="1200" height="1200" loading="lazy">
+                    <div class="dish-info">
+                        <div class="dish-header">
+                            <h4>Spicy Spaghetti</h4>
+                            <span class="price">Rs. 350</span>
+                        </div>
+                        <p class="dish-desc">A fiery twist on classic spaghetti with bold spices.</p>
+                    </div>
+                </div>
+
+                <!-- Chicken Cafreal with Garlic Rice -->
+                <div class="menu-item fade-up premium-item delay-3">
+                    <img src="food/chicken cafreal & rice.webp" alt="Chicken Cafreal" class="menu-img" width="1024" height="1536" loading="lazy">
+                    <div class="dish-info">
+                        <div class="dish-header">
+                            <h4>Chicken Cafreal & Rice</h4>
+                            <span class="price">Rs. 450</span>
+                        </div>
+                        <p class="dish-desc">Goan-style green masala chicken served with aromatic garlic rice.</p>
+                    </div>
+                </div>
+
+                <!-- Chicken Ramen -->
+                <div class="menu-item fade-up premium-item delay-4">
+                    <img src="food/chicken ramen.webp" alt="Chicken Ramen" class="menu-img" width="1024" height="1536" loading="lazy">
+                    <div class="dish-info">
+                        <div class="dish-header">
+                            <h4>Chicken Ramen</h4>
+                            <span class="price">Rs. 350</span>
+                        </div>
+                        <p class="dish-desc">Hearty broth, noodles, and tender chicken.</p>
+                    </div>
+                </div>
+
+                <!-- Keema Rice -->
+                <div class="menu-item fade-up premium-item delay-5">
+                    <img src="food/keema rice.webp" alt="Keema Rice" class="menu-img" width="1024" height="1536" loading="lazy">
+                    <div class="dish-info">
+                        <div class="dish-header">
+                            <h4>Keema Rice</h4>
+                            <span class="price">Rs. 350</span>
+                        </div>
+                        <p class="dish-desc">Spiced minced meat served over fluffy rice.</p>
+                    </div>
+                </div>
+
+                <!-- Chicken Chakli -->
+                <div class="menu-item fade-up premium-item">
+                    <img src="food/chicken chakli.webp" alt="Chicken Chakli" class="menu-img" width="1024" height="1536" loading="lazy">
+                    <div class="dish-info">
+                        <div class="dish-header">
+                            <h4>Chicken Chakli</h4>
+                            <span class="price">Rs. 280</span>
+                        </div>
+                        <p class="dish-desc">Crispy, savory chicken snack perfection.</p>
+                    </div>
+                </div>
+
+
+                <!-- PREVIOUS SPECIALS (Standardized Image) -->
+
                 <!-- Special 1 -->
                 <div class="menu-item fade-up">
-                    <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=2000&auto=format&fit=crop"
-                        alt="Pan Grilled Chicken" class="menu-img">
+                    <img src="food/pan grilled chicken breast.webp" alt="Pan Grilled Chicken" class="menu-img" width="1024" height="1536" loading="lazy">
                     <div class="dish-info">
                         <div class="dish-header">
                             <h4>Pan Grilled Chicken Breast</h4>
@@ -171,8 +287,7 @@
 
                 <!-- Special 2 -->
                 <div class="menu-item fade-up delay-1">
-                    <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2000&auto=format&fit=crop"
-                        alt="Creamy Chicken" class="menu-img">
+                    <img src="food/creamy chicken w garlic bread.webp" alt="Creamy Chicken" class="menu-img" width="1024" height="1536" loading="lazy">
                     <div class="dish-info">
                         <div class="dish-header">
                             <h4>Creamy Chicken w/ Garlic Bread</h4>
@@ -184,8 +299,7 @@
 
                 <!-- Special 3 -->
                 <div class="menu-item fade-up delay-2">
-                    <img src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?q=80&w=2000&auto=format&fit=crop"
-                        alt="Chicken Rice Bowl" class="menu-img">
+                    <img src="food/chicken rice bowl.webp" alt="Chicken Rice Bowl" class="menu-img" width="1024" height="1536" loading="lazy">
                     <div class="dish-info">
                         <div class="dish-header">
                             <h4>Chicken Rice Bowl</h4>
@@ -197,8 +311,7 @@
 
                 <!-- Special 4 -->
                 <div class="menu-item fade-up delay-3">
-                    <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=2000&auto=format&fit=crop"
-                        alt="Paneer Rice Bowl" class="menu-img">
+                    <img src="food/paneer rice bowl.webp" alt="Paneer Rice Bowl" class="menu-img" width="1024" height="1024" loading="lazy">
                     <div class="dish-info">
                         <div class="dish-header">
                             <h4>Paneer Rice Bowl</h4>
@@ -210,8 +323,7 @@
 
                 <!-- Special 5 -->
                 <div class="menu-item fade-up delay-4">
-                    <img src="https://images.unsplash.com/photo-1552611052-33e04de081de?q=80&w=2000&auto=format&fit=crop"
-                        alt="Keema Noodles" class="menu-img">
+                    <img src="food/keema noodles chicken.webp" alt="Keema Noodles" class="menu-img" width="2311" height="1536" loading="lazy">
                     <div class="dish-info">
                         <div class="dish-header">
                             <h4>Keema Noodles</h4>
@@ -223,8 +335,7 @@
 
                 <!-- Special 6 -->
                 <div class="menu-item fade-up delay-5">
-                    <img src="https://images.unsplash.com/photo-1546964124-0cce460f38ef?q=80&w=2000&auto=format&fit=crop"
-                        alt="Chicken Steak" class="menu-img">
+                    <img src="food/chicken steak with butter rice.webp" alt="Chicken Steak" class="menu-img" width="2816" height="1536" loading="lazy">
                     <div class="dish-info">
                         <div class="dish-header">
                             <h4>Chicken Steak w/ Butter Rice</h4>
@@ -251,7 +362,7 @@
             <div class="footer-grid">
                 <!-- Branding -->
                 <div class="footer-col brand-col">
-                    <img src="Logo.png" alt="Treat Up" class="footer-logo">
+                    <img src="Logo.webp" alt="Treat Up" class="footer-logo" width="337" height="400" loading="lazy">
                     <p class="footer-desc">
                         Your daily destination for elevated comfort food and a classic atmosphere.
                     </p>

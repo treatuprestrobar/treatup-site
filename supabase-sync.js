@@ -37,6 +37,17 @@
         return (txt || '').toLowerCase().replace(/[^a-z0-9]/g, '');
     }
 
+    // Helper: XSS sanitizer for user-provided database content
+    function escapeHtml(str) {
+        if (str == null) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
     // Fallback copy button injector in case script.js hasn't exposed it
     function attachCopyButtons() {
         if (typeof window.injectCopyButtons === 'function') {
@@ -99,18 +110,22 @@
                 const delayClass = idx % 6 === 0 ? '' : `delay-${idx % 6}`;
                 const premiumClass = item.is_new ? 'premium-item' : '';
                 const dims = getImageDimensions(item.image_url);
+                const safeName = escapeHtml(item.name || 'Special Dish');
+                const safeDesc = escapeHtml(item.description || '');
+                const safePrice = (item.price != null && !isNaN(item.price)) ? item.price : 0;
+                const safeImg = escapeHtml(item.image_url || 'favicon.png');
 
                 const card = document.createElement('div');
                 card.className = `menu-item fade-up visible ${premiumClass} ${delayClass}`.trim();
 
                 card.innerHTML = `
-                    <img src="${item.image_url}" alt="${item.name}" class="menu-img" width="${dims.w}" height="${dims.h}" loading="lazy">
+                    <img src="${safeImg}" alt="${safeName}" class="menu-img" width="${dims.w}" height="${dims.h}" loading="lazy">
                     <div class="dish-info">
                         <div class="dish-header">
-                            <h4>${item.name}</h4>
-                            <span class="price">Rs. ${item.price}</span>
+                            <h4>${safeName}</h4>
+                            <span class="price">Rs. ${safePrice}</span>
                         </div>
-                        <p class="dish-desc">${item.description || ''}</p>
+                        <p class="dish-desc">${safeDesc}</p>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -150,14 +165,15 @@
                         if (normalizeText(nameEl.textContent) === normItemName) {
                             // 1. Update Price
                             const priceEl = domItem.querySelector('.item-price');
-                            if (priceEl) {
+                            if (priceEl && item.price != null && !isNaN(item.price)) {
+                                const validPrice = parseFloat(item.price);
                                 if (priceEl.innerHTML.includes('Veg:') && priceEl.innerHTML.includes('Non-Veg:')) {
                                     // Preserve dual Veg/Non-Veg structure
-                                    priceEl.innerHTML = `<span>Veg: Rs. ${item.price}/-</span> <span class="ml-2">Non-Veg: Rs. ${item.price}/-</span>`;
+                                    priceEl.innerHTML = `<span>Veg: Rs. ${validPrice}/-</span> <span class="ml-2">Non-Veg: Rs. ${validPrice}/-</span>`;
                                 } else if (priceEl.textContent.includes('(Stick)')) {
-                                    priceEl.textContent = `Rs. ${item.price}/- (Stick)`;
+                                    priceEl.textContent = `Rs. ${validPrice}/- (Stick)`;
                                 } else {
-                                    priceEl.textContent = `Rs. ${item.price}/-`;
+                                    priceEl.textContent = `Rs. ${validPrice}/-`;
                                 }
                             }
 
@@ -207,10 +223,11 @@
                         for (const row of rows) {
                             const cells = row.querySelectorAll('td');
                             if (cells.length >= 5 && normalizeText(cells[0].textContent) === normBrand) {
-                                cells[1].textContent = item.ml_60 ? `${item.ml_60}/-` : '-';
-                                cells[2].textContent = item.qtr ? `${item.qtr}/-` : '-';
-                                cells[3].textContent = item.half ? `${item.half}/-` : '-';
-                                cells[4].textContent = item.full ? `${item.full}/-` : '-';
+                                const fmt = (p) => (p != null && !isNaN(p) && p !== '') ? `${p}/-` : '-';
+                                cells[1].textContent = fmt(item.ml_60);
+                                cells[2].textContent = fmt(item.qtr);
+                                cells[3].textContent = fmt(item.half);
+                                cells[4].textContent = fmt(item.full);
                                 break;
                             }
                         }

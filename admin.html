@@ -11,7 +11,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -46,21 +46,40 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <style>
-        /* Custom scrollbar for admin panels */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+        /* Remove default Chrome, Safari, Edge, Opera number stepper */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
         }
-        ::-webkit-scrollbar-track {
-            background: #141414;
+        /* Remove Firefox number stepper */
+        input[type=number] { 
+            -moz-appearance: textfield; 
         }
-        ::-webkit-scrollbar-thumb {
-            background: #C5A059;
-            border-radius: 4px;
+
+        /* Invisible Native App Swipe (No visible scrollbars) */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none !important;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #E0BE7A;
+        .no-scrollbar {
+            -ms-overflow-style: none !important;
+            scrollbar-width: none !important;
         }
+
+        /* Exact public website navbar logo typography */
+        .logo-text {
+            font-family: 'Montserrat', sans-serif !important;
+            font-size: 1.2rem !important;
+            font-weight: 600 !important; /* Matches exact rendered weight on index.html */
+            letter-spacing: 3px !important;
+            text-transform: uppercase !important;
+            color: #F5F5F5 !important;
+            line-height: 1 !important;
+            display: inline-block !important;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
         .gold-glow {
             box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
         }
@@ -101,7 +120,7 @@
             
             <div class="text-center mb-8">
                 <img src="Logo.webp" alt="Treat Up" class="h-16 mx-auto mb-3 object-contain">
-                <h1 class="font-heading text-3xl font-bold text-white tracking-wider">TREAT UP</h1>
+                <h1 class="logo-text text-2xl sm:text-3xl">TREAT UP</h1>
                 <p class="text-xs uppercase tracking-widest text-gold mt-1">Management Portal</p>
                 <p class="text-xs text-neutral-500 mt-2">Sign in to manage live menus, specials & prices</p>
             </div>
@@ -164,7 +183,7 @@
                     <img src="Logo.webp" alt="Treat Up" class="h-9 w-auto">
                     <div>
                         <div class="flex items-center gap-2">
-                            <span class="font-heading font-bold text-xl text-white tracking-wider">TREAT UP</span>
+                            <span class="logo-text">TREAT UP</span>
                             <span class="text-[10px] bg-gold/15 text-gold border border-gold/30 px-2 py-0.5 rounded-full font-semibold">ADMIN</span>
                         </div>
                         <span class="text-[11px] text-neutral-500 hidden sm:block">Airport Mode, Biratnagar</span>
@@ -196,7 +215,7 @@
 
             <!-- Tab Navigation Bar -->
             <div class="bg-obsidian border-t border-surface-border/50">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex overflow-x-auto space-x-2 sm:space-x-8 py-2">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex overflow-x-auto no-scrollbar space-x-2 sm:space-x-8 py-2">
                     <button class="nav-tab active flex items-center gap-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap text-gold bg-surface border-b-2 border-gold" data-tab="specials">
                         <ion-icon name="star-outline" class="text-lg"></ion-icon>
                         <span>Home Page Specials</span>
@@ -278,7 +297,7 @@
                 </div>
 
                 <!-- Category Filtering Pills -->
-                <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-thin" id="category-pills">
+                <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2" id="category-pills">
                     <button class="cat-pill active px-3 py-1.5 rounded-lg text-xs font-semibold bg-gold text-obsidian" data-cat="all">All Items</button>
                     <button class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface border border-surface-border text-neutral-400 hover:text-white" data-cat="starters">Starters</button>
                     <button class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface border border-surface-border text-neutral-400 hover:text-white" data-cat="soups">Soups</button>
@@ -292,17 +311,17 @@
 
                 <!-- Menu Items Table / List -->
                 <div class="bg-charcoal border border-surface-border rounded-xl overflow-hidden shadow-lg">
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto no-scrollbar">
                         <table class="w-full text-left text-xs">
                             <thead class="bg-surface text-neutral-400 uppercase tracking-wider text-[11px] border-b border-surface-border">
                                 <tr>
-                                    <th class="py-3 px-4">Dish Name</th>
-                                    <th class="py-3 px-4">Category</th>
-                                    <th class="py-3 px-4">Subcategory</th>
-                                    <th class="py-3 px-4">Price (NPR)</th>
-                                    <th class="py-3 px-4 text-center">Status</th>
-                                    <th class="py-3 px-4 text-center">Badge</th>
-                                    <th class="py-3 px-4 text-right">Actions</th>
+                                    <th class="px-2 py-2.5 sm:px-4 sm:py-3 min-w-[130px]">Dish Name</th>
+                                    <th class="px-2 py-2.5 sm:px-4 sm:py-3">Category</th>
+                                    <th class="px-2 py-2.5 sm:px-4 sm:py-3 hidden md:table-cell">Subcategory</th>
+                                    <th class="px-2 py-2.5 sm:px-4 sm:py-3">Price (NPR)</th>
+                                    <th class="px-2 py-2.5 sm:px-4 sm:py-3 text-center">Status</th>
+                                    <th class="px-2 py-2.5 sm:px-4 sm:py-3 text-center hidden sm:table-cell">Badge</th>
+                                    <th class="px-2 py-2.5 sm:px-4 sm:py-3 text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="menu-items-table-body" class="divide-y divide-surface-border/60">
@@ -341,17 +360,17 @@
 
                 <!-- Liquor 5-Column Table -->
                 <div class="bg-charcoal border border-surface-border rounded-xl overflow-hidden shadow-lg">
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto no-scrollbar">
                         <table class="w-full text-left text-xs">
                             <thead class="bg-surface text-neutral-400 uppercase tracking-wider text-[11px] border-b border-surface-border">
                                 <tr>
-                                    <th class="py-3 px-4">Brand</th>
-                                    <th class="py-3 px-4">60ml</th>
-                                    <th class="py-3 px-4">Quarter (180ml)</th>
-                                    <th class="py-3 px-4">Half (375ml)</th>
-                                    <th class="py-3 px-4">Full (750ml)</th>
-                                    <th class="py-3 px-4 text-center">Status</th>
-                                    <th class="py-3 px-4 text-right">Actions</th>
+                                    <th class="px-2 py-2.5 sm:px-4 sm:py-3 min-w-[120px]">Brand</th>
+                                    <th class="px-2 py-2.5 sm:px-4 sm:py-3">60ml</th>
+                                    <th class="px-2 py-2.5 sm:px-4 sm:py-3">Quarter (180ml)</th>
+                                    <th class="px-2 py-2.5 sm:px-4 sm:py-3">Half (375ml)</th>
+                                    <th class="px-2 py-2.5 sm:px-4 sm:py-3">Full (750ml)</th>
+                                    <th class="px-2 py-2.5 sm:px-4 sm:py-3 text-center">Status</th>
+                                    <th class="px-2 py-2.5 sm:px-4 sm:py-3 text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="liquor-table-body" class="divide-y divide-surface-border/60">
@@ -607,12 +626,23 @@
             const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
             let confirmCallback = null;
 
+            // XSS Sanitizer Helper
+            function escapeHtml(str) {
+                if (str == null) return '';
+                return String(str)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
+            }
+
             // Toast Helper
             function showToast(message, type = 'success') {
                 const container = document.getElementById('toast-container');
                 const toast = document.createElement('div');
                 const isSuccess = type === 'success';
-                toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl border shadow-xl text-xs font-medium transform transition duration-300 translate-y-2 opacity-0 ${
+                toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl border shadow-xl text-xs font-medium transform transition-all duration-300 translate-y-2 opacity-0 ${
                     isSuccess ? 'bg-charcoal border-gold/40 text-white' : 'bg-charcoal border-crimson/50 text-red-200'
                 }`;
                 toast.innerHTML = `
@@ -624,9 +654,9 @@
                     toast.classList.remove('translate-y-2', 'opacity-0');
                 });
                 setTimeout(() => {
-                    toast.classList.add('translate-y-2', 'opacity-0');
+                    toast.classList.add('translate-y-2', 'opacity-0', 'pointer-events-none');
                     setTimeout(() => toast.remove(), 300);
-                }, 3000);
+                }, 1500);
             }
 
             // Confirm Dialog Helper
@@ -794,9 +824,14 @@
                         item.is_active ? 'border-surface-border' : 'border-surface-border/40 opacity-60'
                     }`;
 
+                    const safeName = escapeHtml(item.name);
+                    const safeDesc = escapeHtml(item.description || 'No description provided.');
+                    const safeImg = escapeHtml(item.image_url || 'favicon.png');
+                    const safePrice = (item.price != null && !isNaN(item.price)) ? parseFloat(item.price) : 0;
+
                     card.innerHTML = `
                         <div class="relative h-44 bg-surface overflow-hidden">
-                            <img src="${item.image_url || 'favicon.png'}" alt="${item.name}" class="w-full h-full object-cover transition duration-300 hover:scale-105">
+                            <img src="${safeImg}" alt="${safeName}" class="w-full h-full object-cover transition duration-300 hover:scale-105">
                             ${item.is_new ? '<span class="absolute top-2.5 right-2.5 bg-gold text-obsidian text-[10px] font-black uppercase px-2.5 py-0.5 rounded shadow">NEW</span>' : ''}
                             <button class="toggle-special-active absolute bottom-2 left-2 px-2 py-0.5 rounded text-[10px] font-bold uppercase transition ${
                                 item.is_active ? 'bg-green-600/90 text-white' : 'bg-neutral-700 text-neutral-300'
@@ -807,14 +842,14 @@
                         <div class="p-4 flex-1 flex flex-col justify-between">
                             <div>
                                 <div class="flex items-start justify-between gap-2 mb-1.5">
-                                    <h4 class="font-bold text-white text-sm line-clamp-1">${item.name}</h4>
+                                    <h4 class="font-bold text-white text-sm line-clamp-1">${safeName}</h4>
                                     <!-- Inline Fast Price Edit -->
-                                    <div class="flex items-center gap-1 group cursor-pointer fast-price-edit" data-id="${item.id}" data-price="${item.price}" data-type="special">
-                                        <span class="text-gold font-bold text-sm">Rs. ${item.price}</span>
+                                    <div class="flex items-center gap-1 group cursor-pointer fast-price-edit" data-id="${item.id}" data-price="${safePrice}" data-type="special">
+                                        <span class="text-gold font-bold text-sm">Rs. ${safePrice}</span>
                                         <ion-icon name="pencil-outline" class="text-neutral-500 group-hover:text-gold text-xs"></ion-icon>
                                     </div>
                                 </div>
-                                <p class="text-neutral-400 text-xs line-clamp-2 mb-3">${item.description || 'No description provided.'}</p>
+                                <p class="text-neutral-400 text-xs line-clamp-2 mb-3">${safeDesc}</p>
                             </div>
                             <div class="flex items-center justify-between pt-3 border-t border-surface-border/60">
                                 <span class="text-[10px] text-neutral-500 font-mono">Order #${item.sort_order || 0}</span>
@@ -823,7 +858,7 @@
                                         <ion-icon name="create-outline"></ion-icon>
                                         <span>Edit</span>
                                     </button>
-                                    <button class="btn-delete-special p-1.5 text-xs text-neutral-500 hover:text-crimson hover:bg-crimson/10 rounded transition" data-id="${item.id}" data-name="${item.name}">
+                                    <button class="btn-delete-special p-1.5 text-xs text-neutral-500 hover:text-crimson hover:bg-crimson/10 rounded transition" data-id="${item.id}" data-name="${safeName}">
                                         <ion-icon name="trash-outline" class="text-sm"></ion-icon>
                                     </button>
                                 </div>
@@ -944,6 +979,12 @@
                 const file = e.target.files[0];
                 if (!file) return;
 
+                if (!file.type || !file.type.startsWith('image/')) {
+                    showToast('Invalid file format. Please select an image.', 'error');
+                    e.target.value = '';
+                    return;
+                }
+
                 const statusEl = document.getElementById('upload-status');
                 statusEl.textContent = 'Uploading...';
                 statusEl.className = 'text-[11px] text-gold animate-pulse';
@@ -952,9 +993,15 @@
                     const ext = file.name.split('.').pop();
                     const fileName = `special-${Date.now()}.${ext}`;
 
-                    const { data, error } = await supabaseClient.storage
+                    const uploadPromise = supabaseClient.storage
                         .from('specials-images')
                         .upload(fileName, file, { cacheControl: '3600', upsert: true });
+
+                    const timeoutPromise = new Promise((_, reject) =>
+                        setTimeout(() => reject(new Error('Upload timed out after 20 seconds. Please check your network.')), 20000)
+                    );
+
+                    const { data, error } = await Promise.race([uploadPromise, timeoutPromise]);
 
                     if (error) throw error;
 
@@ -969,7 +1016,7 @@
                 } catch (err) {
                     statusEl.textContent = 'Upload failed: ' + err.message;
                     statusEl.className = 'text-[11px] text-crimson';
-                    showToast('Image upload failed', 'error');
+                    showToast(err.message || 'Image upload failed', 'error');
                 }
             });
 
@@ -1015,40 +1062,45 @@
                 filtered.forEach(item => {
                     const tr = document.createElement('tr');
                     tr.className = `hover:bg-surface/50 transition ${item.is_active ? '' : 'opacity-50'}`;
+                    const safeName = escapeHtml(item.name);
+                    const safeCategory = escapeHtml(item.category);
+                    const safeSubCat = escapeHtml(item.sub_category || '-');
+                    const safePrice = (item.price != null && !isNaN(item.price)) ? parseFloat(item.price) : 0;
+
                     tr.innerHTML = `
-                        <td class="py-3 px-4 font-medium text-white">
-                            <span>${item.name}</span>
+                        <td class="px-2 py-2.5 sm:px-4 sm:py-3 font-medium text-white min-w-[130px]">
+                            <span>${safeName}</span>
                         </td>
-                        <td class="py-3 px-4">
-                            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-surface border border-surface-border text-neutral-300 uppercase">${item.category}</span>
+                        <td class="px-2 py-2.5 sm:px-4 sm:py-3">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-surface border border-surface-border text-neutral-300 uppercase">${safeCategory}</span>
                         </td>
-                        <td class="py-3 px-4 text-neutral-400">${item.sub_category || '-'}</td>
-                        <td class="py-3 px-4 font-bold text-gold">
-                            <div class="flex items-center gap-1 group cursor-pointer fast-price-edit" data-id="${item.id}" data-price="${item.price}" data-type="menu_item">
-                                <span>Rs. ${item.price}</span>
+                        <td class="px-2 py-2.5 sm:px-4 sm:py-3 text-neutral-400 hidden md:table-cell">${safeSubCat}</td>
+                        <td class="px-2 py-2.5 sm:px-4 sm:py-3 font-bold text-gold">
+                            <div class="flex items-center gap-1 group cursor-pointer fast-price-edit" data-id="${item.id}" data-price="${safePrice}" data-type="menu_item">
+                                <span>Rs. ${safePrice}</span>
                                 <ion-icon name="pencil-outline" class="text-neutral-500 group-hover:text-gold text-xs"></ion-icon>
                             </div>
                         </td>
-                        <td class="py-3 px-4 text-center">
+                        <td class="px-2 py-2.5 sm:px-4 sm:py-3 text-center">
                             <button class="toggle-stock px-2.5 py-0.5 rounded-full text-[10px] font-bold transition ${
                                 item.is_active ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-neutral-800 text-neutral-500 border border-neutral-700'
                             }" data-id="${item.id}" data-active="${item.is_active}">
                                 ${item.is_active ? 'In Stock' : 'Out of Stock'}
                             </button>
                         </td>
-                        <td class="py-3 px-4 text-center">
+                        <td class="px-2 py-2.5 sm:px-4 sm:py-3 text-center hidden sm:table-cell">
                             <button class="toggle-new-badge px-2 py-0.5 rounded text-[10px] font-bold uppercase transition ${
                                 item.is_new ? 'bg-gold/20 text-gold border border-gold/40' : 'bg-surface text-neutral-600 border border-surface-border'
                             }" data-id="${item.id}" data-new="${item.is_new}">
                                 ${item.is_new ? 'NEW' : '-'}
                             </button>
                         </td>
-                        <td class="py-3 px-4 text-right">
+                        <td class="px-2 py-2.5 sm:px-4 sm:py-3 text-right">
                             <div class="flex items-center justify-end gap-1.5">
                                 <button class="btn-edit-menu p-1 text-neutral-400 hover:text-white rounded hover:bg-surface transition" data-id="${item.id}">
                                     <ion-icon name="create-outline" class="text-sm"></ion-icon>
                                 </button>
-                                <button class="btn-delete-menu p-1 text-neutral-500 hover:text-crimson rounded hover:bg-crimson/10 transition" data-id="${item.id}" data-name="${item.name}">
+                                <button class="btn-delete-menu p-1 text-neutral-500 hover:text-crimson rounded hover:bg-crimson/10 transition" data-id="${item.id}" data-name="${safeName}">
                                     <ion-icon name="trash-outline" class="text-sm"></ion-icon>
                                 </button>
                             </div>
@@ -1229,44 +1281,44 @@
                     const tr = document.createElement('tr');
                     tr.className = `hover:bg-surface/50 transition ${item.is_active ? '' : 'opacity-50'}`;
                     tr.innerHTML = `
-                        <td class="py-3 px-4 font-bold text-white">${item.brand}</td>
-                        <td class="py-3 px-4">
+                        <td class="px-2 py-2.5 sm:px-4 sm:py-3 font-bold text-white min-w-[120px]">${escapeHtml(item.brand)}</td>
+                        <td class="px-2 py-2.5 sm:px-4 sm:py-3">
                             <div class="flex items-center gap-1 group cursor-pointer fast-price-edit" data-id="${item.id}" data-price="${item.ml_60 || ''}" data-type="liquor" data-field="ml_60">
                                 <span class="text-gold font-bold">${item.ml_60 ? 'Rs. ' + item.ml_60 : '-'}</span>
                                 <ion-icon name="pencil-outline" class="text-neutral-500 group-hover:text-gold text-xs"></ion-icon>
                             </div>
                         </td>
-                        <td class="py-3 px-4">
+                        <td class="px-2 py-2.5 sm:px-4 sm:py-3">
                             <div class="flex items-center gap-1 group cursor-pointer fast-price-edit" data-id="${item.id}" data-price="${item.qtr || ''}" data-type="liquor" data-field="qtr">
                                 <span class="text-gold font-bold">${item.qtr ? 'Rs. ' + item.qtr : '-'}</span>
                                 <ion-icon name="pencil-outline" class="text-neutral-500 group-hover:text-gold text-xs"></ion-icon>
                             </div>
                         </td>
-                        <td class="py-3 px-4">
+                        <td class="px-2 py-2.5 sm:px-4 sm:py-3">
                             <div class="flex items-center gap-1 group cursor-pointer fast-price-edit" data-id="${item.id}" data-price="${item.half || ''}" data-type="liquor" data-field="half">
                                 <span class="text-gold font-bold">${item.half ? 'Rs. ' + item.half : '-'}</span>
                                 <ion-icon name="pencil-outline" class="text-neutral-500 group-hover:text-gold text-xs"></ion-icon>
                             </div>
                         </td>
-                        <td class="py-3 px-4">
+                        <td class="px-2 py-2.5 sm:px-4 sm:py-3">
                             <div class="flex items-center gap-1 group cursor-pointer fast-price-edit" data-id="${item.id}" data-price="${item.full || ''}" data-type="liquor" data-field="full">
                                 <span class="text-gold font-bold">${item.full ? 'Rs. ' + item.full : '-'}</span>
                                 <ion-icon name="pencil-outline" class="text-neutral-500 group-hover:text-gold text-xs"></ion-icon>
                             </div>
                         </td>
-                        <td class="py-3 px-4 text-center">
+                        <td class="px-2 py-2.5 sm:px-4 sm:py-3 text-center">
                             <button class="toggle-liquor-active px-2.5 py-0.5 rounded-full text-[10px] font-bold transition ${
                                 item.is_active ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-neutral-800 text-neutral-500 border border-neutral-700'
                             }" data-id="${item.id}" data-active="${item.is_active}">
                                 ${item.is_active ? 'In Stock' : 'Out of Stock'}
                             </button>
                         </td>
-                        <td class="py-3 px-4 text-right">
+                        <td class="px-2 py-2.5 sm:px-4 sm:py-3 text-right">
                             <div class="flex items-center justify-end gap-1.5">
                                 <button class="btn-edit-liquor p-1 text-neutral-400 hover:text-white rounded hover:bg-surface transition" data-id="${item.id}">
                                     <ion-icon name="create-outline" class="text-sm"></ion-icon>
                                 </button>
-                                <button class="btn-delete-liquor p-1 text-neutral-500 hover:text-crimson rounded hover:bg-crimson/10 transition" data-id="${item.id}" data-brand="${item.brand}">
+                                <button class="btn-delete-liquor p-1 text-neutral-500 hover:text-crimson rounded hover:bg-crimson/10 transition" data-id="${item.id}" data-brand="${escapeHtml(item.brand)}">
                                     <ion-icon name="trash-outline" class="text-sm"></ion-icon>
                                 </button>
                             </div>
@@ -1394,7 +1446,7 @@
                 containerEl.innerHTML = `
                     <div class="flex items-center gap-1">
                         <input type="number" step="5" value="${currentVal}"
-                            class="w-20 bg-black border border-gold text-white text-xs px-1.5 py-0.5 rounded focus:outline-none">
+                            class="w-20 bg-black border border-gold/70 text-white text-xs px-2 py-1 text-center rounded focus:outline-none focus:border-[#C5A059] focus:ring-1 focus:ring-gold transition">
                         <button class="save-price-btn text-green-400 hover:text-green-300 p-0.5"><ion-icon name="checkmark-outline" class="text-base"></ion-icon></button>
                         <button class="cancel-price-btn text-neutral-500 hover:text-white p-0.5"><ion-icon name="close-outline" class="text-base"></ion-icon></button>
                     </div>

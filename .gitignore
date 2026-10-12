@@ -1,0 +1,15 @@
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python & Node
+__pycache__/
+*.pyc
+*.log
+node_modules/
+
+# Temporary scratch
+scratch/
+tmp/

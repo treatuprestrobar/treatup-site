@@ -4,10 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Treat Up Restaurant & Bar</title>
+    <title>Treat Up Restaurant & Bar | Biratnagar</title>
     <meta name="description"
-        content="It’s all about the taste. TreatUp Restro & Bar brings a fresh focus on flavor to Biratnagar. Experience a place where every bite is crafted for satisfaction. Visit us today on Airport Mode!">
+        content="Biratnagar’s premier restaurant & bar on Airport Mode. Enjoy handcrafted steaks, artisanal pasta, authentic momos, and fine spirits in a luxury ambiance.">
+    <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://treatup.com.np/">
     <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- OpenGraph / Facebook / WhatsApp -->
+    <meta property="og:type" content="restaurant">
+    <meta property="og:site_name" content="Treat Up Restaurant & Bar">
+    <meta property="og:title" content="Treat Up Restaurant & Bar | Biratnagar">
+    <meta property="og:description"
+        content="Biratnagar’s premier restaurant & bar on Airport Mode. Handcrafted steaks, artisanal pasta, authentic momos, and fine spirits in a luxury ambiance.">
+    <meta property="og:url" content="https://treatup.com.np/">
+    <meta property="og:image" content="https://treatup.com.np/og-banner.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Treat Up Restaurant & Bar | Biratnagar">
+    <meta name="twitter:description" content="Biratnagar’s premier restaurant & bar on Airport Mode.">
+    <meta name="twitter:image" content="https://treatup.com.np/og-banner.webp">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,23 +42,39 @@
     <!-- Ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- Enhanced Schema.org JSON-LD -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Restaurant",
-      "name": "TreatUp Restro and Bar",
-      "url": "https://treatup.com.np",
+      "name": "Treat Up Restaurant & Bar",
+      "image": "https://treatup.com.np/og-banner.webp",
+      "logo": "https://treatup.com.np/Logo.webp",
+      "url": "https://treatup.com.np/",
+      "telephone": "+9779816168997",
+      "priceRange": "Rs. 150 - Rs. 1500",
+      "servesCuisine": ["Continental", "Nepali", "Asian", "Bar"],
       "hasMenu": "https://treatup.com.np/menu.html",
-      "potentialAction": [
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Airport Mode",
+        "addressLocality": "Biratnagar",
+        "addressRegion": "Koshi Province",
+        "postalCode": "56613",
+        "addressCountry": "NP"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 26.4858,
+        "longitude": 87.2750
+      },
+      "openingHoursSpecification": [
         {
-          "@type": "ViewAction",
-          "target": "https://treatup.com.np/menu.html",
-          "name": "View Menu"
-        },
-        {
-          "@type": "OrderAction",
-          "target": "https://wa.me/9779816168997?text=Hi%20Treat%20Up!%20I'd%20like%20to%20place%20an%20order.",
-          "name": "Order Now"
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "10:00",
+          "closes": "21:30"
         }
       ]
     }

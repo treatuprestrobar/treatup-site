@@ -153,16 +153,56 @@
             if (menuErr) {
                 console.warn('[TreatUp] Supabase menu items fetch error:', menuErr.message);
             } else if (menuItems && menuItems.length > 0) {
-                const domItems = document.querySelectorAll('.menu-list-item');
+                const hydratedElements = new Set();
                 let updatedCount = 0;
 
                 menuItems.forEach(item => {
+                    const sectionEl = document.getElementById(item.category);
+                    if (!sectionEl) return;
+
+                    let targetScope = sectionEl;
+                    if (item.sub_category) {
+                        const normSub = normalizeText(item.sub_category);
+                        const groups = sectionEl.querySelectorAll('.menu-group');
+                        for (const grp of groups) {
+                            const titleEl = grp.querySelector('.menu-group-title');
+                            if (titleEl && normalizeText(titleEl.textContent).includes(normSub)) {
+                                targetScope = grp;
+                                break;
+                            }
+                        }
+
+                        // Fallback for standalone headings not wrapped in .menu-group (e.g., Beer, Dessert, Wine)
+                        if (targetScope === sectionEl) {
+                            const titles = sectionEl.querySelectorAll('.menu-group-title');
+                            for (const titleEl of titles) {
+                                if (normalizeText(titleEl.textContent).includes(normSub)) {
+                                    let sibling = titleEl.nextElementSibling;
+                                    while (sibling && !sibling.classList.contains('menu-list')) {
+                                        if (sibling.classList.contains('menu-group-title')) break;
+                                        sibling = sibling.nextElementSibling;
+                                    }
+                                    if (sibling && sibling.classList.contains('menu-list')) {
+                                        targetScope = sibling;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     const normItemName = normalizeText(item.name);
+                    const domItems = targetScope.querySelectorAll('.menu-list-item');
+
                     for (const domItem of domItems) {
+                        if (hydratedElements.has(domItem)) continue;
+
                         const nameEl = domItem.querySelector('.item-name');
                         if (!nameEl) continue;
 
                         if (normalizeText(nameEl.textContent) === normItemName) {
+                            hydratedElements.add(domItem);
+
                             // 1. Update Price
                             const priceEl = domItem.querySelector('.item-price');
                             if (priceEl && item.price != null && !isNaN(item.price)) {
